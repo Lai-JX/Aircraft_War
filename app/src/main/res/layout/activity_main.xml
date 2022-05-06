@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.aircraftWar.application.MainActivity"
+    android:orientation="vertical"
+    android:layout_marginTop="50dp">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="简单模式"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:backgroundTint="@color/grey"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:id="@+id/btn_easy_mode"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="普通模式"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:backgroundTint="@color/grey"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:id="@+id/btn_common_mode"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="困难模式"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:backgroundTint="@color/grey"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:id="@+id/btn_difficult_mode"
+        />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="音效       "
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:background="@color/white"
+        android:layout_gravity="center"
+        android:padding="5dp"/>
+</LinearLayout>

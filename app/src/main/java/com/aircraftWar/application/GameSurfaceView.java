@@ -118,8 +118,8 @@ public class GameSurfaceView  extends SurfaceView implements
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
 //				设置缩放比
         Matrix matrix = new Matrix();
-        // 设置位置，以sp为单位
-        matrix.setTranslate(flyingObject.getLocationX(),MainActivity.WINDOW_HEIGHT/2);//flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)
+        // 设置位置，以px为单位
+        matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)-(MainActivity.WINDOW_HEIGHT-canvas.getHeight()));//
 //        matrix.setScale(MainActivity.WINDOW_WIDTH / imageW, MainActivity.WINDOW_HEIGHT / imageH);
         canvas.drawBitmap(bitmap, matrix, mPaint);
 

@@ -25,7 +25,7 @@ public class HeroAircraft extends AbstractAircraft {
                 if(heroAircraft == null){
                     heroAircraft = new HeroAircraft(
                             MainActivity.WINDOW_WIDTH / 2,
-                            MainActivity.WINDOW_HEIGHT - 550,//ImageManager.hero.getHeight() ,//550
+                            MainActivity.WINDOW_HEIGHT ,//-ImageManager.hero.getHeight() ,//550
                             0, 0, blood);
 //                            new DirectShoot());
                 }

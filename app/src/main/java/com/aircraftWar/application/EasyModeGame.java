@@ -22,18 +22,17 @@ public class EasyModeGame extends AbstractGame{
         heroAircraft = HeroAircraft.getInstance(1000);
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
-
+        ImageManager imageManager = new ImageManager(this);
+//        Log.i("h",String.valueOf(ImageManager.hero.getHeight()));
         action();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN){
-            heroController.x = (event.getX());
-            heroController.y = (event.getY());
-            Log.i("xxxxxxxx",String.valueOf(event.getRawX()));
-            Log.i("y",String.valueOf(event.getRawY()));
-        }
+//        if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN){
+//            heroController.x = (event.getX());
+//            heroController.y = (event.getY());
+//        }
         return true;
     }
 

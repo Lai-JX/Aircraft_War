@@ -24,6 +24,7 @@ import java.util.List;
 
 public class GameSurfaceView  extends SurfaceView implements
         SurfaceHolder.Callback,Runnable{
+    private Context context;
     private boolean mbLoop; // 是否绘制画面
     private SurfaceHolder mSurfaceHolder;
     private Canvas canvas;  //绘图的画布
@@ -42,7 +43,9 @@ public class GameSurfaceView  extends SurfaceView implements
 
 
     public GameSurfaceView(Context context,String mode) {
+
         super(context);
+        this.context = context;
         mbLoop = true;
         mPaint = new Paint();  //设置画笔
         mSurfaceHolder = this.getHolder();
@@ -102,8 +105,12 @@ public class GameSurfaceView  extends SurfaceView implements
 //				得到图片高、宽
         float imageH = opts.outHeight;
         float imageW = opts.outWidth;
-        System.out.println("图片的高" + imageH);
+        System.out.println("图片的高" + imageH+" px"+DisplayUtil.sp2px(context,imageH));
         System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
+        System.out.println("屏幕的宽sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_WIDTH));
+        System.out.println("屏幕的高sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_HEIGHT));
+        System.out.println("飞机纵坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationY())+" px"+(flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)));
+        System.out.println("飞机横坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationX())+" px"+flyingObject.getLocationX());
 
 
         PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
@@ -111,7 +118,8 @@ public class GameSurfaceView  extends SurfaceView implements
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
 //				设置缩放比
         Matrix matrix = new Matrix();
-        matrix.setTranslate(flyingObject.getLocationX(),flyingObject.getLocationY());
+        // 设置位置，以sp为单位
+        matrix.setTranslate(flyingObject.getLocationX(),MainActivity.WINDOW_HEIGHT/2);//flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)
 //        matrix.setScale(MainActivity.WINDOW_WIDTH / imageW, MainActivity.WINDOW_HEIGHT / imageH);
         canvas.drawBitmap(bitmap, matrix, mPaint);
 

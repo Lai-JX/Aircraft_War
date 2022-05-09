@@ -20,7 +20,7 @@ public class GameActivity extends AppCompatActivity {
 //        text.setText(mode);
         if(mode.equals("1")){
 //            game = new EasyModeGame(this);
-            setContentView(R.layout.activity_easy_game);
+            setContentView(R.layout.activity_game);
         }
     }
 }

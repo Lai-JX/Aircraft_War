@@ -1,39 +1,158 @@
 package com.aircraftWar.application;
 
-import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
+import com.aircraftWar.aircraft.HeroAircraft;
 import com.example.aircraftwar.R;
+
+import java.util.concurrent.TimeUnit;
 
 public class EasyModeGame extends AbstractGame{
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ImageManager imageManager = new ImageManager(this);
+        setContentView(R.layout.activity_game);
+        mSurfaceView = new GameSurfaceView(this,"easy");
+        heroAircraft = HeroAircraft.getInstance(1000);
+        setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_easy_game);
-        init();
+
+        action();
     }
 
-    // 添加背景和hero机
-    public void init(){
-        // 设置图片位置
-        params = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.gravity = backGroundTop | Gravity.NO_GRAVITY;
-        addContentView(ImageManager.bg2,params);
-        params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-        addContentView(ImageManager.hero,params);
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN){
+            heroController.x = (event.getX());
+            heroController.y = (event.getY());
+            Log.i("xxxxxxxx",String.valueOf(event.getRawX()));
+            Log.i("y",String.valueOf(event.getRawY()));
+        }
+        return true;
     }
+
+    public void action(){
+//        init();
+        // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
+        Runnable task = () -> {
+
+            time += timeInterval;
+            Log.i("time",String.valueOf(time));
+            mSurfaceView.getAllFlyingObject(heroAircraft);
+//            // bgm和boss_bgm线程是否失效，失效则重新添加，以实现循环播放
+//            if(chooseDifficulty.isSoundOpen() && !bgm.isAlive()){
+//                bgm = new MusicThread("src/videos/bgm.wav");
+//                bgm.start();
+//            }
+//            if(chooseDifficulty.isSoundOpen() && BossEnemy.bossNum==1 && !boss_bgm.isAlive()){
+//                boss_bgm = new MusicThread("src/videos/boss_bgm.wav");
+//                boss_bgm.start();
+//            }
+//
+//            // 周期性执行（控制频率）
+//            if (timeCountAndNewCycleJudge()) {
+//
+//                // 飞机射出子弹
+//                shootAction();
+//            }
+//            // 每隔enemyCycleDuration产生敌机
+//            if(enemy_timeCountAndNewCycleJudge()) {
+//                // 产生敌机
+//                // 参数:精英敌机出现的概论eliteEnemyProbability，产生boss机的阈值
+//                creatEnemyAircraft(600, 5, 0, 30,
+//                        10, 30, 10);
+//            }
+//
+//            // 子弹移动
+//            bulletsMoveAction();
+//
+//            // 飞机移动
+//            aircraftsMoveAction();
+//
+//            // 子弹道具失效
+//            bullutPropWorkTime();
+//
+//            // 道具移动
+//            propMoveAction();
+//
+//            // 撞击检测
+//            crashCheckAction(10,20,40);
+//
+//            // 后处理
+//            postProcessAction();
+//
+//            //每个时刻重绘界面
+//            repaint();
+
+
+
+
+            // 游戏结束检查
+//            if (heroAircraft.getHp() <= 0) {
+//                // 游戏结束音乐
+//                if(chooseDifficulty.isSoundOpen()){
+//                    new MusicThread("src/videos/game_over.wav").start();
+//                    bgm.setStop(true);
+//                    if(BossEnemy.bossNum == 1){
+//                        boss_bgm.setStop(true);
+//                    }
+//                }
+//
+//                // 游戏结束
+//                gameOverFlag = true;
+//                executorService.shutdown();
+//
+//                System.out.println("Game Over!");
+//            }
+
+        };
+
+        /**
+         * 以固定延迟时间进行执行
+         * 本次任务执行完成后，需要延迟设定的延迟时间，才会执行新的任务
+         */
+        executorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
+
+    }
+
+//    // 添加背景和hero机
+//    public void init(){
+//        // 设置图片位置
+//        params = new FrameLayout.LayoutParams(
+//                FrameLayout.LayoutParams.WRAP_CONTENT,
+//                FrameLayout.LayoutParams.WRAP_CONTENT
+//        );
+//        params.gravity = backGroundTop | Gravity.NO_GRAVITY;
+//        // 添加背景图片
+//        addContentView(ImageManager.bg2,params);
+////        addContentView(ImageManager.hero,params);
+//
+//        // 添加英雄机控制
+//        heroController = new HeroController(this,heroAircraft);
+//        addContentView(heroController,new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+//                FrameLayout.LayoutParams.WRAP_CONTENT));
+//        params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+//        addContentView(ImageManager.hero,params);
+//
+//        draw();
+//    }
+//
+//    protected void draw(){
+//        // 绘制英雄机
+//        Log.i("x1",String.valueOf(heroAircraft.getLocationX()));
+//        Log.i("y1",String.valueOf(heroAircraft.getLocationY()));
+//            ImageManager.hero.setTranslationY(-1*heroAircraft.getLocationY());
+//            ImageManager.hero.setTranslationX(heroAircraft.getLocationX());
+//
+//    }
+
+
 
 
 }

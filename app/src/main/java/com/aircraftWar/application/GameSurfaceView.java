@@ -57,7 +57,7 @@ public class GameSurfaceView  extends SurfaceView implements
 
     @Override
     public void run() {
-        if(mbLoop){
+        while(mbLoop){
             Log.i("draw","draw");
             draw();
         }
@@ -106,11 +106,11 @@ public class GameSurfaceView  extends SurfaceView implements
         float imageH = opts.outHeight;
         float imageW = opts.outWidth;
         System.out.println("图片的高" + imageH+" px"+DisplayUtil.sp2px(context,imageH));
-        System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
-        System.out.println("屏幕的宽sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_WIDTH));
-        System.out.println("屏幕的高sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_HEIGHT));
-        System.out.println("飞机纵坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationY())+" px"+(flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)));
-        System.out.println("飞机横坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationX())+" px"+flyingObject.getLocationX());
+//        System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
+//        System.out.println("屏幕的宽sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_WIDTH));
+//        System.out.println("屏幕的高sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_HEIGHT));
+//        System.out.println("飞机纵坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationY())+" px"+(flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)));
+//        System.out.println("飞机横坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationX())+" px"+flyingObject.getLocationX());
 
 
         PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
@@ -119,7 +119,7 @@ public class GameSurfaceView  extends SurfaceView implements
 //				设置缩放比
         Matrix matrix = new Matrix();
         // 设置位置，以px为单位
-        matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)-(MainActivity.WINDOW_HEIGHT-canvas.getHeight()));//
+        matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,flyingObject.getLocationY()-(MainActivity.WINDOW_HEIGHT-canvas.getHeight()));//-DisplayUtil.sp2px(context,imageH)
 //        matrix.setScale(MainActivity.WINDOW_WIDTH / imageW, MainActivity.WINDOW_HEIGHT / imageH);
         canvas.drawBitmap(bitmap, matrix, mPaint);
 

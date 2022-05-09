@@ -29,10 +29,9 @@ public class EasyModeGame extends AbstractGame{
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-//        if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN){
-//            heroController.x = (event.getX());
-//            heroController.y = (event.getY());
-//        }
+        if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN){
+            heroAircraft.setLocation(event.getX(),event.getY());
+        }
         return true;
     }
 

@@ -105,8 +105,8 @@ public class AbstractFlyingObject {
         int fWidth = flyingObject.getWidth();
         int fHeight = flyingObject.getHeight();
 
-        System.out.println("各参数"+" "+x +" "+ y + " "+fWidth+" "+fHeight);
-        System.out.println(flyingObject.getClass());
+//        System.out.println("各参数"+" "+x +" "+ y + " "+fWidth+" "+fHeight);
+//        System.out.println(flyingObject.getClass());
 
         return x + (fWidth+this.getWidth())/2 > locationX
                 && x - (fWidth+this.getWidth())/2 < locationX
@@ -146,18 +146,26 @@ public class AbstractFlyingObject {
 
     public int getWidth() {
         if (width == -1){
-            // 若未设置，则查询图片宽度并设置
-            width = ImageManager.get(this).getWidth();
+//            // 若未设置，则查询图片宽度并设置
+//            System.out.println("width");
+//            width = ImageManager.get(this).getWidth();
+            return 0;
         }
         return width;
     }
 
     public int getHeight() {
         if (height == -1){
-            // 若未设置，则查询图片高度并设置
-            height = ImageManager.get(this).getHeight();
+//            // 若未设置，则查询图片高度并设置
+//            height = ImageManager.get(this).getHeight();
+            return 0;
         }
         return height;
+    }
+
+    public void setHeightWidth(float h,float w){
+        this.height = (int)h;
+        this.width = (int)w;
     }
     public boolean notValid() {
         return !this.isValid;

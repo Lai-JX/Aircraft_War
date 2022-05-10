@@ -78,14 +78,15 @@ public class EasyModeGame extends AbstractGame{
 //            // 道具移动
 //            propMoveAction();
 //
+            // surfaceView获取需要绘制的所有飞行物
+            mSurfaceView.getAllFlyingObject(heroAircraft,enemyAircrafts,heroBullets,enemyBullets,props);
 //            // 撞击检测
             crashCheckAction(10,20,40);
 //
 //            // 后处理
             postProcessAction();
 //
-            // surfaceView获取需要绘制的所有飞行物
-            mSurfaceView.getAllFlyingObject(heroAircraft,enemyAircrafts,heroBullets,enemyBullets,props);
+
 //            //每个时刻重绘界面
 //            repaint();
 

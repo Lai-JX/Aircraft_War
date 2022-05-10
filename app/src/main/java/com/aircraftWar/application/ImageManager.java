@@ -81,6 +81,7 @@ private static final Map<String, ImageView> CLASSNAME_IMAGE_MAP = new HashMap<>(
         CLASSNAME_IMAGE_MAP.put(BloodProp.class.getName(), prop_blood);
         CLASSNAME_IMAGE_MAP.put(BombProp.class.getName(), prop_bomb);
         CLASSNAME_IMAGE_MAP.put(BulletProp.class.getName(), prop_bullet);
+        System.out.println("hero getWidth "+hero.getWidth());
     }
 //
 //    // 获取boss图片
@@ -132,12 +133,16 @@ private static final Map<String, ImageView> CLASSNAME_IMAGE_MAP = new HashMap<>(
 //        return bullet_enemy;
 //    }
     public static ImageView get(String className){
-        return CLASSNAME_IMAGE_MAP.get(className);
+        ImageView img =CLASSNAME_IMAGE_MAP.get(className);
+        System.out.println("getWidth"+img.getWidth());
+        return img;
     }
     public static ImageView get(Object obj){
         if(obj == null){
             return null;
         }
+        System.out.println("className"+obj.getClass().getName());
+
         return get(obj.getClass().getName());
     }
 }

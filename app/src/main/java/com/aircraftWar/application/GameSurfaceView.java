@@ -160,7 +160,7 @@ public class GameSurfaceView  extends SurfaceView implements
 //        System.out.println("屏幕的高sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_HEIGHT));
 //        System.out.println("飞机纵坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationY())+" px"+(flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)));
 //        System.out.println("飞机横坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationX())+" px"+flyingObject.getLocationX());
-
+        flyingObject.setHeightWidth(DisplayUtil.sp2px(context,imageW),DisplayUtil.sp2px(context,imageH));
 
         PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
         canvas.setDrawFilter(pfd);//解决缩放后图片字体模糊的问题

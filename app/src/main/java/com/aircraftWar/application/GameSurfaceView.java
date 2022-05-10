@@ -136,8 +136,8 @@ public class GameSurfaceView  extends SurfaceView implements
 //				得到图片高、宽
         float imageH = opts.outHeight;
         float imageW = opts.outWidth;
-        System.out.println("图片的高" + imageH);
-        System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
+//        System.out.println("图片的高" + imageH);
+//        System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
         PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
         canvas.setDrawFilter(pfd);//解决缩放后图片字体模糊的问题
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
@@ -154,7 +154,7 @@ public class GameSurfaceView  extends SurfaceView implements
 //				得到图片高、宽
         float imageH = opts.outHeight;
         float imageW = opts.outWidth;
-        System.out.println("图片的高" + imageH+" px"+DisplayUtil.sp2px(context,imageH));
+//        System.out.println("图片的高" + imageH+" px"+DisplayUtil.sp2px(context,imageH));
 //        System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
 //        System.out.println("屏幕的宽sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_WIDTH));
 //        System.out.println("屏幕的高sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_HEIGHT));

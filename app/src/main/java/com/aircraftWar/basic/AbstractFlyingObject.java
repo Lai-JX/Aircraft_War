@@ -2,6 +2,8 @@ package com.aircraftWar.basic;
 
 import android.widget.ImageView;
 
+import com.aircraftWar.aircraft.AbstractAircraft;
+import com.aircraftWar.application.ImageManager;
 import com.aircraftWar.application.MainActivity;
 
 public class AbstractFlyingObject {
@@ -95,19 +97,19 @@ public class AbstractFlyingObject {
      */
     public boolean crash(AbstractFlyingObject flyingObject) {
         // 缩放因子，用于控制 y轴方向区域范围
-//        int factor = this instanceof AbstractAircraft ? 2 : 1;
-//        int fFactor = flyingObject instanceof AbstractAircraft ? 2 : 1;
+        int factor = this instanceof AbstractAircraft ? 2 : 1;
+        int fFactor = flyingObject instanceof AbstractAircraft ? 2 : 1;
 
         int x = flyingObject.getLocationX();
         int y = flyingObject.getLocationY();
         int fWidth = flyingObject.getWidth();
         int fHeight = flyingObject.getHeight();
 
-//        return x + (fWidth+this.getWidth())/2 > locationX
-//                && x - (fWidth+this.getWidth())/2 < locationX
-//                && y + ( fHeight/fFactor+this.getHeight()/factor )/2 > locationY
-//                && y - ( fHeight/fFactor+this.getHeight()/factor )/2 < locationY;
-        return true;
+        return x + (fWidth+this.getWidth())/2 > locationX
+                && x - (fWidth+this.getWidth())/2 < locationX
+                && y + ( fHeight/fFactor+this.getHeight()/factor )/2 > locationY
+                && y - ( fHeight/fFactor+this.getHeight()/factor )/2 < locationY;
+
     }
 
     public int getLocationX() {
@@ -142,7 +144,7 @@ public class AbstractFlyingObject {
     public int getWidth() {
         if (width == -1){
             // 若未设置，则查询图片宽度并设置
-//            width = ImageManager.get(this).getWidth();
+            width = ImageManager.get(this).getWidth();
         }
         return width;
     }
@@ -150,7 +152,7 @@ public class AbstractFlyingObject {
     public int getHeight() {
         if (height == -1){
             // 若未设置，则查询图片高度并设置
-//            height = ImageManager.get(this).getHeight();
+            height = ImageManager.get(this).getHeight();
         }
         return height;
     }

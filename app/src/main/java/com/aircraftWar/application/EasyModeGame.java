@@ -41,7 +41,7 @@ public class EasyModeGame extends AbstractGame{
         Runnable task = () -> {
 
             time += timeInterval;
-            Log.i("time",String.valueOf(time));
+//            Log.i("time",String.valueOf(time));
 //            // bgm和boss_bgm线程是否失效，失效则重新添加，以实现循环播放
 //            if(chooseDifficulty.isSoundOpen() && !bgm.isAlive()){
 //                bgm = new MusicThread("src/videos/bgm.wav");
@@ -79,7 +79,7 @@ public class EasyModeGame extends AbstractGame{
 //            propMoveAction();
 //
 //            // 撞击检测
-//            crashCheckAction(10,20,40);
+            crashCheckAction(10,20,40);
 //
 //            // 后处理
             postProcessAction();

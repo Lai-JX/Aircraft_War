@@ -64,7 +64,7 @@ public class GameSurfaceView  extends SurfaceView implements
     @Override
     public void run() {
         while(mbLoop){
-            Log.i("draw","draw");
+//            Log.i("draw","draw");
             draw();
         }
 

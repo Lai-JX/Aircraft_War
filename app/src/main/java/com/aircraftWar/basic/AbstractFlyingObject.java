@@ -105,6 +105,9 @@ public class AbstractFlyingObject {
         int fWidth = flyingObject.getWidth();
         int fHeight = flyingObject.getHeight();
 
+        System.out.println("各参数"+" "+x +" "+ y + " "+fWidth+" "+fHeight);
+        System.out.println(flyingObject.getClass());
+
         return x + (fWidth+this.getWidth())/2 > locationX
                 && x - (fWidth+this.getWidth())/2 < locationX
                 && y + ( fHeight/fFactor+this.getHeight()/factor )/2 > locationY

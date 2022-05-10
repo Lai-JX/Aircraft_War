@@ -42,7 +42,6 @@ public class EasyModeGame extends AbstractGame{
 
             time += timeInterval;
             Log.i("time",String.valueOf(time));
-            mSurfaceView.getAllFlyingObject(heroAircraft);
 //            // bgm和boss_bgm线程是否失效，失效则重新添加，以实现循环播放
 //            if(chooseDifficulty.isSoundOpen() && !bgm.isAlive()){
 //                bgm = new MusicThread("src/videos/bgm.wav");
@@ -53,25 +52,25 @@ public class EasyModeGame extends AbstractGame{
 //                boss_bgm.start();
 //            }
 //
-//            // 周期性执行（控制频率）
-//            if (timeCountAndNewCycleJudge()) {
-//
-//                // 飞机射出子弹
-//                shootAction();
-//            }
-//            // 每隔enemyCycleDuration产生敌机
-//            if(enemy_timeCountAndNewCycleJudge()) {
-//                // 产生敌机
-//                // 参数:精英敌机出现的概论eliteEnemyProbability，产生boss机的阈值
-//                creatEnemyAircraft(600, 5, 0, 30,
-//                        10, 30, 10);
-//            }
+            // 周期性执行（控制频率）
+            if (timeCountAndNewCycleJudge()) {
+
+                // 飞机射出子弹
+                shootAction();
+            }
+            // 每隔enemyCycleDuration产生敌机
+            if(enemy_timeCountAndNewCycleJudge()) {
+                // 产生敌机
+                // 参数:精英敌机出现的概论eliteEnemyProbability，产生boss机的阈值
+                creatEnemyAircraft(600, 5, 0, 30,
+                        10, 30, 10);
+            }
 //
 //            // 子弹移动
-//            bulletsMoveAction();
+            bulletsMoveAction();
 //
 //            // 飞机移动
-//            aircraftsMoveAction();
+            aircraftsMoveAction();
 //
 //            // 子弹道具失效
 //            bullutPropWorkTime();
@@ -83,8 +82,10 @@ public class EasyModeGame extends AbstractGame{
 //            crashCheckAction(10,20,40);
 //
 //            // 后处理
-//            postProcessAction();
+            postProcessAction();
 //
+            // surfaceView获取需要绘制的所有飞行物
+            mSurfaceView.getAllFlyingObject(heroAircraft,enemyAircrafts,heroBullets,enemyBullets,props);
 //            //每个时刻重绘界面
 //            repaint();
 

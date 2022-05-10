@@ -14,10 +14,16 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 
 import com.aircraftWar.aircraft.AbstractEnemyAircraft;
+import com.aircraftWar.aircraft.BossEnemy;
+import com.aircraftWar.aircraft.EliteEnemy;
 import com.aircraftWar.aircraft.HeroAircraft;
+import com.aircraftWar.aircraft.MobEnemy;
 import com.aircraftWar.basic.AbstractFlyingObject;
 import com.aircraftWar.bullet.BaseBullet;
 import com.aircraftWar.prop.AbstractProp;
+import com.aircraftWar.prop.BloodProp;
+import com.aircraftWar.prop.BombProp;
+import com.aircraftWar.prop.BulletProp;
 import com.example.aircraftwar.R;
 
 import java.util.List;
@@ -64,8 +70,16 @@ public class GameSurfaceView  extends SurfaceView implements
 
     }
 
-    public void getAllFlyingObject(HeroAircraft heroAircraft){
+    public void getAllFlyingObject(HeroAircraft heroAircraft,
+                                   List<AbstractEnemyAircraft> enemyAircrafts,
+                                   List<BaseBullet> heroBullets,
+                                   List<BaseBullet> enemyBullets,
+                                   List<AbstractProp> props){
         this.heroAircraft = heroAircraft;
+        this.enemyAircrafts = enemyAircrafts;
+        this.heroBullets = heroBullets;
+        this.enemyBullets = enemyBullets;
+        this.props = props;
     }
 
     public void draw(){
@@ -73,6 +87,41 @@ public class GameSurfaceView  extends SurfaceView implements
         if(mode.equals("easy")){
             drawBackGround(R.drawable.bg);   // 绘制背景
         }
+        // 绘制敌机子弹
+        for(int i=0; i< enemyBullets.size(); i++){
+            drawImage(R.drawable.bullet_enemy,enemyBullets.get(i));
+        }
+
+//        // 绘制英雄机子弹
+//        for(AbstractFlyingObject obj : heroBullets){
+//            drawImage(R.drawable.bullet_hero,obj);
+//        }
+        for(int i=0;i<heroBullets.size();i++){
+            drawImage(R.drawable.bullet_hero,heroBullets.get(i));
+        }
+        // 绘制敌机
+        for(int i = 0; i<enemyAircrafts.size(); i++){
+            AbstractEnemyAircraft obj = enemyAircrafts.get(i);
+            if(obj instanceof MobEnemy){
+                drawImage(R.drawable.mob,obj);
+            }else if(obj instanceof EliteEnemy){
+                drawImage(R.drawable.elite,obj);
+            }else if(obj instanceof BossEnemy){
+                drawImage(R.drawable.boss,obj);
+            }
+        }
+        // 绘制道具
+        for(int i=0; i<props.size();i++){
+            AbstractProp obj = props.get(i);
+            if(obj instanceof BloodProp){
+                drawImage(R.drawable.prop_blood,obj);
+            }else if(obj instanceof BombProp){
+                drawImage(R.drawable.prop_bomb,obj);
+            }else if(obj instanceof BulletProp){
+                drawImage(R.drawable.prop_bullet,obj);
+            }
+        }
+        // 绘制英雄机
         drawImage(R.drawable.hero,heroAircraft);
 //				解锁
         mSurfaceHolder.unlockCanvasAndPost(canvas);

@@ -1,6 +1,7 @@
 package com.aircraftWar.prop;
 
 import com.aircraftWar.aircraft.HeroAircraft;
+import com.aircraftWar.application.AbstractGame;
 import com.aircraftWar.application.MusicThread;
 
 public class BloodProp extends AbstractProp{
@@ -9,12 +10,12 @@ public class BloodProp extends AbstractProp{
 
     }
 
-//    @Override
-//    public void propWork(HeroAircraft heroAircraft) {
-//        System.out.println("HpSupply active!");
-//        heroAircraft.gainHp(30);
-////        if(chooseDifficulty.isSoundOpen()){
-////            new MusicThread("src/videos/get_supply.wav").start();
-////        }
-//    }
+    @Override
+    public void propWork(HeroAircraft heroAircraft) {
+        System.out.println("HpSupply active!");
+        heroAircraft.gainHp(30);
+        if(AbstractGame.soundOpen){
+//            new MusicThread("src/videos/get_supply.wav").start();
+        }
+    }
 }

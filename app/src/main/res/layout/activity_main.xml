@@ -56,5 +56,7 @@
         android:textSize="30sp"
         android:background="@color/white"
         android:layout_gravity="center"
+        android:id="@+id/sound_switch"
+        android:checked="true"
         android:padding="5dp"/>
 </LinearLayout>

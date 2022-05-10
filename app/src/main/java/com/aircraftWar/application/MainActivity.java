@@ -12,6 +12,7 @@ import com.example.aircraftwar.R;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
+    private boolean soundOpen = true;
 
 
     @Override
@@ -26,13 +27,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         // 注册点击监听器
         findViewById(R.id.btn_easy_mode).setOnClickListener(this);
+        findViewById(R.id.sound_switch).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v){
+        if(v.getId() == R.id.sound_switch){
+            soundOpen = !soundOpen;
+            System.out.println("sound "+soundOpen);
+        }
         if(v.getId()==R.id.btn_easy_mode){
             Intent intent = new Intent(this,EasyModeGame.class);
-//            intent.putExtra("mode","1");      // 添加要传递给游戏界面的参数
+            intent.putExtra("soundOpen",soundOpen);      // 添加要传递给游戏界面的参数
             startActivity(intent);
         }
     }

@@ -28,6 +28,7 @@ import com.aircraftWar.prop.BloodProp;
 import com.aircraftWar.prop.BloodPropFactory;
 import com.aircraftWar.prop.BombProp;
 import com.aircraftWar.prop.BombPropFactory;
+import com.aircraftWar.prop.BulletProp;
 import com.aircraftWar.prop.BulletPropFactory;
 import com.aircraftWar.prop.PropFactory;
 import com.aircraftWar.strategy.DirectShoot;
@@ -44,6 +45,7 @@ public class AbstractGame extends AppCompatActivity {
     protected FrameLayout.LayoutParams params;
     protected int backGroundTop = 0;
     protected GameSurfaceView mSurfaceView; // 绘制游戏画面
+    public static boolean soundOpen;    // 是否开启音效
 
     /**
      * Scheduled 线程池，用于任务调度
@@ -293,14 +295,13 @@ public class AbstractGame extends AppCompatActivity {
                     // 避免多个子弹重复击毁同一敌机的判定
                     continue;
                 }
-                Log.i("crush",String.valueOf(enemyAircraft.crash(bullet)));
                 if (enemyAircraft.crash(bullet)) {
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
                     enemyAircraft.decreaseHp(bullet.getPower());
-//                    if(chooseDifficulty.isSoundOpen()){
+                    if(soundOpen){
 //                        new MusicThread("src/videos/bullet_hit.wav").start();
-//                    }
+                    }
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
                         score += mobScore;
@@ -316,13 +317,11 @@ public class AbstractGame extends AppCompatActivity {
                             if(enemyAircraft instanceof BossEnemy){
                                 score += bossScore-mobScore;
                                 counter += bossScore-mobScore;
-//                                if(chooseDifficulty.isSoundOpen()){
+                                if(soundOpen){
 //                                    boss_bgm.setStop(true);
-//                                }
+                                }
                             }
                             // 如果被击落的是精英敌机或boss，则随机产生道具或不产生道具
-//                            Random rd = new Random();
-//                            int x = rd.nextInt(10);
                             double x = Math.random();
                             double step = (1-noPropProbability)/3;
                             if(x >= 0 && x < step){//获得加血道具
@@ -372,15 +371,15 @@ public class AbstractGame extends AppCompatActivity {
                 if(!prop.notValid()){
                     prop.vanish();
                     if(prop instanceof BloodProp){  //获得加血道具，增加30血
-//                        ((BloodProp)prop).propWork(heroAircraft);
+                        ((BloodProp)prop).propWork(heroAircraft);
                     }else if(prop instanceof BombProp){
                         // 为炸弹道具增加观察者（子弹和非boss敌机）,并增加得分
                         addEnemyBulletSubscribe((BombProp) prop,mobScore,eliteScore);
-//                        ((BombProp)prop).propWork(heroAircraft);
+                        ((BombProp)prop).propWork(heroAircraft);
                         // 移除所有观察者
-//                        ((BombProp)prop).unSubscriber();
+                        ((BombProp)prop).unSubscriber();
                     }else{
-//                        ((BulletProp)prop).propWork(heroAircraft);
+                        ((BulletProp)prop).propWork(heroAircraft);
                         BulletPropStart = time;
                     }
                 }
@@ -394,11 +393,11 @@ public class AbstractGame extends AppCompatActivity {
         // 添加观察者（道具生效需要销毁的敌机）
         for(AbstractEnemyAircraft enemy : enemyAircrafts){
             if(enemy instanceof EliteEnemy){
-//                bombProp.addSubscriber((EliteEnemy)enemy);
+                bombProp.addSubscriber((EliteEnemy)enemy);
                 score += eliteScore;
                 counter +=eliteScore;
             }else if(enemy instanceof MobEnemy){
-//                bombProp.addSubscriber((MobEnemy)enemy);
+                bombProp.addSubscriber((MobEnemy)enemy);
                 score += mobScore;
                 counter += mobScore;
             }
@@ -406,7 +405,7 @@ public class AbstractGame extends AppCompatActivity {
 
         // 添加观察者（道具生效需要销毁的敌机子弹）
         for(BaseBullet baseBullet : enemyBullets){
-//            bombProp.addSubscriber((EnemyBullet)baseBullet);
+            bombProp.addSubscriber((EnemyBullet)baseBullet);
         }
     }
 

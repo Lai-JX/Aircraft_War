@@ -1,11 +1,12 @@
 package com.aircraftWar.aircraft;
 
+import com.aircraftWar.Observer.Subscriber;
 import com.aircraftWar.bullet.BaseBullet;
 import com.aircraftWar.strategy.StrategyInterface;
 
 import java.util.List;
 
-public class EliteEnemy extends AbstractEnemyAircraft{
+public class EliteEnemy extends AbstractEnemyAircraft implements Subscriber {
 
 
     //    private int direction = 1;  //子弹射击方向 (向上发射：-1，向下发射：1)
@@ -17,10 +18,10 @@ public class EliteEnemy extends AbstractEnemyAircraft{
         this.strategy = shootMode;
     }
 
-//    @Override
-//    public void bombWork(){
-//        vanish();
-//    }
+    @Override
+    public void bombWork(){
+        vanish();
+    }
 
     public void setStrategy(StrategyInterface strategy){
         this.strategy = strategy;

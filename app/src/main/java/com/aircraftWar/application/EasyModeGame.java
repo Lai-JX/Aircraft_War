@@ -1,11 +1,13 @@
 package com.aircraftWar.application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
+import com.aircraftWar.aircraft.BossEnemy;
 import com.aircraftWar.aircraft.HeroAircraft;
 import com.example.aircraftwar.R;
 
@@ -22,8 +24,15 @@ public class EasyModeGame extends AbstractGame{
         heroAircraft = HeroAircraft.getInstance(1000);
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
-        ImageManager imageManager = new ImageManager(this);
+//        ImageManager imageManager = new ImageManager(this);
 //        Log.i("h",String.valueOf(ImageManager.hero.getHeight()));
+
+        // 获取来自主页面的信息
+        Intent intent = getIntent();
+        soundOpen = intent.getBooleanExtra("soundOpen",true);
+        System.out.println(soundOpen);
+
+        // 游戏开始
         action();
     }
 
@@ -42,12 +51,12 @@ public class EasyModeGame extends AbstractGame{
 
             time += timeInterval;
 //            Log.i("time",String.valueOf(time));
-//            // bgm和boss_bgm线程是否失效，失效则重新添加，以实现循环播放
-//            if(chooseDifficulty.isSoundOpen() && !bgm.isAlive()){
+            // bgm和boss_bgm线程是否失效，失效则重新添加，以实现循环播放
+//            if(soundOpen && !bgm.isAlive()){
 //                bgm = new MusicThread("src/videos/bgm.wav");
 //                bgm.start();
 //            }
-//            if(chooseDifficulty.isSoundOpen() && BossEnemy.bossNum==1 && !boss_bgm.isAlive()){
+//            if(soundOpen && BossEnemy.bossNum==1 && !boss_bgm.isAlive()){
 //                boss_bgm = new MusicThread("src/videos/boss_bgm.wav");
 //                boss_bgm.start();
 //            }
@@ -73,10 +82,10 @@ public class EasyModeGame extends AbstractGame{
             aircraftsMoveAction();
 //
 //            // 子弹道具失效
-//            bullutPropWorkTime();
+            bullutPropWorkTime();
 //
 //            // 道具移动
-//            propMoveAction();
+            propMoveAction();
 //
             // surfaceView获取需要绘制的所有飞行物
             mSurfaceView.getAllFlyingObject(heroAircraft,enemyAircrafts,heroBullets,enemyBullets,props);
@@ -94,22 +103,22 @@ public class EasyModeGame extends AbstractGame{
 
 
             // 游戏结束检查
-//            if (heroAircraft.getHp() <= 0) {
-//                // 游戏结束音乐
-//                if(chooseDifficulty.isSoundOpen()){
+            if (heroAircraft.getHp() <= 0) {
+                // 游戏结束音乐
+                if(soundOpen){
 //                    new MusicThread("src/videos/game_over.wav").start();
 //                    bgm.setStop(true);
-//                    if(BossEnemy.bossNum == 1){
+                    if(BossEnemy.bossNum == 1){
 //                        boss_bgm.setStop(true);
-//                    }
-//                }
-//
-//                // 游戏结束
-//                gameOverFlag = true;
-//                executorService.shutdown();
-//
-//                System.out.println("Game Over!");
-//            }
+                    }
+                }
+
+                // 游戏结束
+                gameOverFlag = true;
+                executorService.shutdown();
+
+                System.out.println("Game Over!");
+            }
 
         };
 
@@ -120,38 +129,6 @@ public class EasyModeGame extends AbstractGame{
         executorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
 
     }
-
-//    // 添加背景和hero机
-//    public void init(){
-//        // 设置图片位置
-//        params = new FrameLayout.LayoutParams(
-//                FrameLayout.LayoutParams.WRAP_CONTENT,
-//                FrameLayout.LayoutParams.WRAP_CONTENT
-//        );
-//        params.gravity = backGroundTop | Gravity.NO_GRAVITY;
-//        // 添加背景图片
-//        addContentView(ImageManager.bg2,params);
-////        addContentView(ImageManager.hero,params);
-//
-//        // 添加英雄机控制
-//        heroController = new HeroController(this,heroAircraft);
-//        addContentView(heroController,new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
-//                FrameLayout.LayoutParams.WRAP_CONTENT));
-//        params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-//        addContentView(ImageManager.hero,params);
-//
-//        draw();
-//    }
-//
-//    protected void draw(){
-//        // 绘制英雄机
-//        Log.i("x1",String.valueOf(heroAircraft.getLocationX()));
-//        Log.i("y1",String.valueOf(heroAircraft.getLocationY()));
-//            ImageManager.hero.setTranslationY(-1*heroAircraft.getLocationY());
-//            ImageManager.hero.setTranslationX(heroAircraft.getLocationX());
-//
-//    }
-
 
 
 

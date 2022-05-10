@@ -47,5 +47,8 @@ public class HeroAircraft extends AbstractAircraft {
     public List<BaseBullet> executeStrategy(){
         return strategy.shoot(this.locationX,this.locationY,this.speedY,-1,1);
     }
+    public void gainHp(int hp){
+        this.hp += hp;
+    }
 
 }

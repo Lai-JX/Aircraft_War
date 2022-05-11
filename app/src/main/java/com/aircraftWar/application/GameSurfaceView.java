@@ -132,6 +132,8 @@ public class GameSurfaceView  extends SurfaceView implements
         }
         // 绘制英雄机
         drawImage(R.drawable.hero,heroAircraft);
+
+
         //绘制声明值和得分信息
         float x = 40;
         float y = 60;
@@ -146,25 +148,20 @@ public class GameSurfaceView  extends SurfaceView implements
     // 绘制背景
     public void drawBackGround(int resId){
         BitmapFactory.Options opts = new BitmapFactory.Options();
-        Bitmap bitm = BitmapFactory.decodeResource(getResources(), resId, opts);
-//				解析图片的头文件
+        //解析图片的头文件
         opts.inJustDecodeBounds = true;
-//				得到图片高、宽
-        int imageH = opts.outHeight;
-        int imageW = opts.outWidth;
-//        System.out.println("图片的高" + imageH);
-//        System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
         PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
         canvas.setDrawFilter(pfd);//解决缩放后图片字体模糊的问题
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
+        //得到图片高、宽
+        int imageH = bitmap.getHeight();
+        int imageW = bitmap.getWidth();
         Matrix matrix = new Matrix();
         matrix.setTranslate(0, backGroundTop - imageH);
         canvas.drawBitmap(bitmap, matrix, mPaint);
         matrix.setTranslate(0, backGroundTop);
         canvas.drawBitmap(bitmap, matrix, mPaint);
-        System.out.println("**********************");
-        System.out.println("imgaeH == :"+imageH);
-            backGroundTop += 1;
+            backGroundTop += 4;
             if (backGroundTop == imageH) {
                 backGroundTop = 0;
             }
@@ -174,33 +171,20 @@ public class GameSurfaceView  extends SurfaceView implements
     public void drawImage(int resId, AbstractFlyingObject flyingObject) {
         BitmapFactory.Options opts = new BitmapFactory.Options();
         Bitmap bitm = BitmapFactory.decodeResource(getResources(), resId, opts);
-//				解析图片的头文件
+        //解析图片的头文件
         opts.inJustDecodeBounds = true;
-//				得到图片高、宽
+        //得到图片高、宽
         float imageH = opts.outHeight;
         float imageW = opts.outWidth;
-//        System.out.println("图片的高" + imageH+" px"+DisplayUtil.sp2px(context,imageH));
-//        System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
-//        System.out.println("屏幕的宽sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_WIDTH));
-//        System.out.println("屏幕的高sp"+DisplayUtil.px2sp(context,MainActivity.WINDOW_HEIGHT));
-//        System.out.println("飞机纵坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationY())+" px"+(flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)));
-//        System.out.println("飞机横坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationX())+" px"+flyingObject.getLocationX());
         flyingObject.setHeightWidth(DisplayUtil.sp2px(context,imageW),DisplayUtil.sp2px(context,imageH));
         PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
         canvas.setDrawFilter(pfd);//解决缩放后图片字体模糊的问题
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
-//				设置缩放比
+        //设置缩放比
         Matrix matrix = new Matrix();
         // 设置位置，以px为单位
         matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,flyingObject.getLocationY()-(MainActivity.WINDOW_HEIGHT-canvas.getHeight()));//-DisplayUtil.sp2px(context,imageH)
-//        matrix.setScale(MainActivity.WINDOW_WIDTH / imageW, MainActivity.WINDOW_HEIGHT / imageH);
-//        matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,backGroundTop-(MainActivity.WINDOW_HEIGHT-canvas.getHeight()));//-DisplayUtil.sp2px(context,imageH)
         canvas.drawBitmap(bitmap, matrix, mPaint);
-//        matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,backGroundTop);//-DisplayUtil.sp2px(context,imageH)
-//        this.backGroundTop += 50;
-//        if (this.backGroundTop == flyingObject.getLocationY()) {
-//            this.backGroundTop = 0;
-//        }
     }
 
     @Override

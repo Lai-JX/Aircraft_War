@@ -96,8 +96,8 @@ public class EasyModeGame extends AbstractGame{
             postProcessAction();
 //
 
-//            //每个时刻重绘界面
-//            repaint();
+            //每个时刻重绘界面
+            //repaint();
 
 
 
@@ -116,7 +116,6 @@ public class EasyModeGame extends AbstractGame{
                 // 游戏结束
                 gameOverFlag = true;
                 executorService.shutdown();
-
                 System.out.println("Game Over!");
             }
 

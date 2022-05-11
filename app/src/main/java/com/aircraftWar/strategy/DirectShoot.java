@@ -16,7 +16,7 @@ public class DirectShoot implements StrategyInterface{
      * @return 射击出的子弹List
      */
     @Override
-    public List<BaseBullet> shoot(int LocationX, int LocationY, double SpeedY, int direction, int AircraftType) {
+    public List<BaseBullet> shoot(int LocationX, int LocationY, double SpeedY, int direction,int shootNum, int AircraftType) {
         List<BaseBullet> res = new LinkedList<>();
         int x = LocationX;
         int y = LocationY + direction*2;

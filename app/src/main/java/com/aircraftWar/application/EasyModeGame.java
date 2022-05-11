@@ -82,7 +82,7 @@ public class EasyModeGame extends AbstractGame{
             aircraftsMoveAction();
 //
 //            // 子弹道具失效
-            bullutPropWorkTime();
+//            bullutPropWorkTime();
 //
 //            // 道具移动
             propMoveAction();

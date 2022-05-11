@@ -12,6 +12,12 @@ import java.util.List;
 public class HeroAircraft extends AbstractAircraft {
     private volatile static HeroAircraft heroAircraft;  // 单例模式下
     private StrategyInterface strategy;
+    private int shootNum = 1;     //子弹一次发射数量
+    private static int power = 100;       //子弹伤害
+    private int direction = -1;  //子弹射击方向 (向上发射：1，向下发射：-1)
+    private int maxPower = 5;   //最大子弹数
+    private int minScatterShootNum = 3;//英雄机散射时的子弹的最少数量
+    private int actualPower = 1;//英雄机吃到火力道具后，实际一次能够发射的子弹数量（不考虑上限）
 
     /**
      * @param locationX 英雄机位置x坐标
@@ -44,8 +50,33 @@ public class HeroAircraft extends AbstractAircraft {
         this.strategy = strategy;
     }
 
+    public int getActualPower() {
+        return actualPower;
+    }
+
+    public void setActualPower(int actualPower) {
+        this.actualPower = actualPower;
+    }
+
+    public int getShootNum() {
+        return shootNum;
+    }
+
+    public void setShootNum(int shootNum) {
+        this.shootNum = shootNum;
+    }
+
+    public int getMinScatterShootNum() {
+        return minScatterShootNum;
+    }
+
+    public int getMaxPower() {
+        return maxPower;
+    }
+
+
     public List<BaseBullet> executeStrategy(){
-        return strategy.shoot(this.locationX,this.locationY,this.speedY,-1,1);
+        return strategy.shoot(this.locationX,this.locationY,this.speedY,-1,shootNum,1);
     }
     public void gainHp(int hp){
         this.hp += hp;

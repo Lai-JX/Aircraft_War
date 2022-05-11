@@ -28,6 +28,6 @@ public class EliteEnemy extends AbstractEnemyAircraft implements Subscriber {
     }
 
     public List<BaseBullet> executeStrategy(){
-        return strategy.shoot(this.locationX,this.locationY,this.speedY,1, 2);
+        return strategy.shoot(this.locationX,this.locationY,this.speedY,1, 1,2);
     }
 }

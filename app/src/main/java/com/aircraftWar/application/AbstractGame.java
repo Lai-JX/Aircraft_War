@@ -197,13 +197,13 @@ public class AbstractGame extends AppCompatActivity {
         }
     }
 
-    protected void bullutPropWorkTime(){
-        // 道具持续bulletPropTime后失效
-        if(BulletPropStart!=0 && time-BulletPropStart > bulletPropTime){
-            heroAircraft.setStrategy(new DirectShoot());
-            BulletPropStart = 0;
-        }
-    }
+//    protected void bullutPropWorkTime(){
+//        // 道具持续bulletPropTime后失效
+//        if(BulletPropStart!=0 && time-BulletPropStart > bulletPropTime){
+//            heroAircraft.setStrategy(new DirectShoot());
+//            BulletPropStart = 0;
+//        }
+//    }
 
     // 产生敌机的周期
     protected boolean enemy_timeCountAndNewCycleJudge() {

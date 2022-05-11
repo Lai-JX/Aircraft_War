@@ -4,9 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.fonts.Font;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -35,7 +37,9 @@ public class GameSurfaceView  extends SurfaceView implements
     private SurfaceHolder mSurfaceHolder;
     private Canvas canvas;  //绘图的画布
     private Paint mPaint;   // 笔
+    private Paint textPaint;
     private String mode;    // 游戏模式
+    private int backGroundTop = 0;
 
 //    /**
 //     * 所有需要绘制的物
@@ -54,6 +58,10 @@ public class GameSurfaceView  extends SurfaceView implements
         this.context = context;
         mbLoop = true;
         mPaint = new Paint();  //设置画笔
+        textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setStrokeWidth(100);
+        textPaint.setTextSize(70);
         mSurfaceHolder = this.getHolder();
         mSurfaceHolder.addCallback(this);// 回调接口
         this.setFocusable(true);    // 控制键盘是否可以获得这个按钮的焦点
@@ -86,6 +94,7 @@ public class GameSurfaceView  extends SurfaceView implements
         canvas = mSurfaceHolder.lockCanvas();
         if(mode.equals("easy")){
             drawBackGround(R.drawable.bg);   // 绘制背景
+
         }
         // 绘制敌机子弹
         for(int i=0; i< enemyBullets.size(); i++){
@@ -123,8 +132,15 @@ public class GameSurfaceView  extends SurfaceView implements
         }
         // 绘制英雄机
         drawImage(R.drawable.hero,heroAircraft);
+        //绘制声明值和得分信息
+        float x = 40;
+        float y = 60;
+        canvas.drawText("SCORE:" + AbstractGame.score, x, y,textPaint);
+        y = y + 80;
+        canvas.drawText("LIFE:" + this.heroAircraft.getHp(), x, y,textPaint);
 //				解锁
         mSurfaceHolder.unlockCanvasAndPost(canvas);
+
     }
 
     // 绘制背景
@@ -134,17 +150,26 @@ public class GameSurfaceView  extends SurfaceView implements
 //				解析图片的头文件
         opts.inJustDecodeBounds = true;
 //				得到图片高、宽
-        float imageH = opts.outHeight;
-        float imageW = opts.outWidth;
+        int imageH = opts.outHeight;
+        int imageW = opts.outWidth;
 //        System.out.println("图片的高" + imageH);
 //        System.out.println("屏幕的高" + MainActivity.WINDOW_HEIGHT);
         PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
         canvas.setDrawFilter(pfd);//解决缩放后图片字体模糊的问题
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
         Matrix matrix = new Matrix();
+        matrix.setTranslate(0, backGroundTop - imageH);
         canvas.drawBitmap(bitmap, matrix, mPaint);
+        matrix.setTranslate(0, backGroundTop);
+        canvas.drawBitmap(bitmap, matrix, mPaint);
+        System.out.println("**********************");
+        System.out.println("imgaeH == :"+imageH);
+            backGroundTop += 1;
+            if (backGroundTop == imageH) {
+                backGroundTop = 0;
+            }
+//        }
     }
-
     // 绘制图片
     public void drawImage(int resId, AbstractFlyingObject flyingObject) {
         BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -161,7 +186,6 @@ public class GameSurfaceView  extends SurfaceView implements
 //        System.out.println("飞机纵坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationY())+" px"+(flyingObject.getLocationY()-DisplayUtil.sp2px(context,imageH)));
 //        System.out.println("飞机横坐标sp"+DisplayUtil.px2sp(context,flyingObject.getLocationX())+" px"+flyingObject.getLocationX());
         flyingObject.setHeightWidth(DisplayUtil.sp2px(context,imageW),DisplayUtil.sp2px(context,imageH));
-
         PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
         canvas.setDrawFilter(pfd);//解决缩放后图片字体模糊的问题
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
@@ -170,9 +194,13 @@ public class GameSurfaceView  extends SurfaceView implements
         // 设置位置，以px为单位
         matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,flyingObject.getLocationY()-(MainActivity.WINDOW_HEIGHT-canvas.getHeight()));//-DisplayUtil.sp2px(context,imageH)
 //        matrix.setScale(MainActivity.WINDOW_WIDTH / imageW, MainActivity.WINDOW_HEIGHT / imageH);
+//        matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,backGroundTop-(MainActivity.WINDOW_HEIGHT-canvas.getHeight()));//-DisplayUtil.sp2px(context,imageH)
         canvas.drawBitmap(bitmap, matrix, mPaint);
-
-
+//        matrix.setTranslate(flyingObject.getLocationX()-DisplayUtil.sp2px(context,imageW)/2,backGroundTop);//-DisplayUtil.sp2px(context,imageH)
+//        this.backGroundTop += 50;
+//        if (this.backGroundTop == flyingObject.getLocationY()) {
+//            this.backGroundTop = 0;
+//        }
     }
 
     @Override

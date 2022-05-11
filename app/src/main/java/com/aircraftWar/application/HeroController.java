@@ -54,7 +54,7 @@ public class HeroController extends SurfaceView implements
 //                Log.i("y3",String.valueOf(heroAircraft.getLocationY()));
             }
             try {
-                Thread.sleep(200);
+                Thread.sleep(80);
             }catch (Exception e){}
         }
     }

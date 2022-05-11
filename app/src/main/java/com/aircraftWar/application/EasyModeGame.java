@@ -103,7 +103,8 @@ public class EasyModeGame extends AbstractGame{
 
 
             // 游戏结束检查
-            if (heroAircraft.getHp() <= 0) {
+            if (
+                    <= 0) {
                 // 游戏结束音乐
                 if(soundOpen){
 //                    new MusicThread("src/videos/game_over.wav").start();

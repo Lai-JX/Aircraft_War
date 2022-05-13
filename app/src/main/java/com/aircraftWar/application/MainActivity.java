@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         // 注册点击监听器
         findViewById(R.id.btn_easy_mode).setOnClickListener(this);
+        findViewById(R.id.btn_common_mode).setOnClickListener(this);
+        findViewById(R.id.btn_difficult_mode).setOnClickListener(this);
         findViewById(R.id.sound_switch).setOnClickListener(this);
     }
 
@@ -38,6 +40,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(v.getId()==R.id.btn_easy_mode){
             Intent intent = new Intent(this,EasyModeGame.class);
+            intent.putExtra("soundOpen",soundOpen);      // 添加要传递给游戏界面的参数
+            startActivity(intent);
+        }
+        else if(v.getId()==R.id.btn_common_mode){
+            System.out.println("开始选择游戏模式");
+            Intent intent = new Intent(this,CommonModeGame.class);
+            System.out.println("选择游戏模式完毕");
+            intent.putExtra("soundOpen",soundOpen);      // 添加要传递给游戏界面的参数
+            System.out.println("设置intent完毕");
+            startActivity(intent);
+            System.out.println("startActivity完毕");
+        }
+        else if(v.getId()==R.id.btn_difficult_mode){
+            Intent intent = new Intent(this,DifficultModeGame.class);
             intent.putExtra("soundOpen",soundOpen);      // 添加要传递给游戏界面的参数
             startActivity(intent);
         }

@@ -1,8 +1,12 @@
 package com.aircraftWar.application;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -31,6 +35,7 @@ import com.aircraftWar.prop.BombPropFactory;
 import com.aircraftWar.prop.BulletProp;
 import com.aircraftWar.prop.BulletPropFactory;
 import com.aircraftWar.prop.PropFactory;
+import com.example.aircraftwar.R;
 import com.aircraftWar.strategy.DirectShoot;
 
 import java.util.LinkedList;
@@ -42,10 +47,12 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class AbstractGame extends AppCompatActivity {
-    protected FrameLayout.LayoutParams params;
-    protected int backGroundTop = 0;
+//    protected FrameLayout.LayoutParams params;
     protected GameSurfaceView mSurfaceView; // 绘制游戏画面
     public static boolean soundOpen;    // 是否开启音效
+    protected Context context;
+    protected Intent intent;
+//    protected MusicService.Binder binder = null;
 
     /**
      * Scheduled 线程池，用于任务调度
@@ -67,8 +74,8 @@ public class AbstractGame extends AppCompatActivity {
 //    protected PropFactory propFactory;
     protected EnemyFactory enemyFactory;
     //    private RecordDao recordDao;
-    protected MusicThread boss_bgm;
-    protected MusicThread bgm;
+//    protected MusicThread boss_bgm;
+//    protected MusicThread bgm;
     protected PropFactory propFactory;
 
 
@@ -176,10 +183,10 @@ public class AbstractGame extends AppCompatActivity {
                         0,
                         boosBlood
                 ));
-//                if(chooseDifficulty.isSoundOpen()){
-//                    boss_bgm = new MusicThread("src/videos/bgm_boss.wav");
+                if(soundOpen){
+//                    boss_bgm = new MusicThread(context,R.raw.bgm_boss);
 //                    boss_bgm.start();
-//                }
+                }
 
             }
 
@@ -300,7 +307,10 @@ public class AbstractGame extends AppCompatActivity {
                     // 敌机损失一定生命值
                     enemyAircraft.decreaseHp(bullet.getPower());
                     if(soundOpen){
-//                        new MusicThread("src/videos/bullet_hit.wav").start();
+//                        new MusicThread(context,R.raw.bullet_hit).start();
+                        intent.putExtra("music","bullet_hit");
+                        startService(intent);
+//                        binder.setData("bullet_hit");
                     }
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
@@ -318,7 +328,9 @@ public class AbstractGame extends AppCompatActivity {
                                 score += bossScore-mobScore;
                                 counter += bossScore-mobScore;
                                 if(soundOpen){
-//                                    boss_bgm.setStop(true);
+//                                    boss_bgm.stopMusic();
+                                    intent.putExtra("music","bgm_boss_close");
+                                    startService(intent);
                                 }
                             }
                             // 如果被击落的是精英敌机或boss，则随机产生道具或不产生道具
@@ -360,7 +372,8 @@ public class AbstractGame extends AppCompatActivity {
                 if (enemyAircraft.crash(heroAircraft) || heroAircraft.crash(enemyAircraft)) {
                     enemyAircraft.vanish();
                     heroAircraft.decreaseHp(Integer.MAX_VALUE);
-//                    boss_bgm.setStop(true);
+//                    intent.putExtra("music","bgm_boss_close");
+//                    startService(intent);
                 }
             }
         }
@@ -371,14 +384,29 @@ public class AbstractGame extends AppCompatActivity {
                 if(!prop.notValid()){
                     prop.vanish();
                     if(prop instanceof BloodProp){  //获得加血道具，增加30血
+                        // 音效
+                        if(AbstractGame.soundOpen){
+                            intent.putExtra("music","get_supply");
+                            startService(intent);
+                        }
                         ((BloodProp)prop).propWork(heroAircraft);
                     }else if(prop instanceof BombProp){
+                        // 音效
+                        if(AbstractGame.soundOpen){
+                            intent.putExtra("music","bomb_explosion");
+                            startService(intent);
+                        }
                         // 为炸弹道具增加观察者（子弹和非boss敌机）,并增加得分
                         addEnemyBulletSubscribe((BombProp) prop,mobScore,eliteScore);
                         ((BombProp)prop).propWork(heroAircraft);
                         // 移除所有观察者
                         ((BombProp)prop).unSubscriber();
                     }else{
+                        // 音效
+                        if(AbstractGame.soundOpen){
+                            intent.putExtra("music","get_supply");
+                            startService(intent);
+                        }
                         ((BulletProp)prop).propWork(heroAircraft);
                         BulletPropStart = time;
                     }
@@ -426,4 +454,12 @@ public class AbstractGame extends AppCompatActivity {
         props.removeIf(AbstractFlyingObject::notValid);
     }
 
+//    @Override
+//    public void onServiceConnected(ComponentName name, IBinder service){
+//        binder = (MusicService.Binder) service;
+//    }
+//    @Override
+//    public void onServiceDisconnected(ComponentName name){
+//
+//    }
 }

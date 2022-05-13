@@ -96,6 +96,12 @@ public class GameSurfaceView  extends SurfaceView implements
             drawBackGround(R.drawable.bg);   // 绘制背景
 
         }
+        else if(mode.equals("common")){
+            drawBackGround(R.drawable.bg3);
+        }
+        else if(mode.equals("difficult")){
+            drawBackGround(R.drawable.bg5);
+        }
         // 绘制敌机子弹
         for(int i=0; i< enemyBullets.size(); i++){
             drawImage(R.drawable.bullet_enemy,enemyBullets.get(i));
@@ -139,7 +145,7 @@ public class GameSurfaceView  extends SurfaceView implements
         float y = 60;
         canvas.drawText("SCORE:" + AbstractGame.score, x, y,textPaint);
         y = y + 80;
-        canvas.drawText("LIFE:" + this.heroAircraft.getHp(), x, y,textPaint);
+        canvas.drawText("LIFE:" + Double.parseDouble(String.format("%.2f",this.heroAircraft.getHp())), x, y,textPaint);
 //				解锁
         mSurfaceHolder.unlockCanvasAndPost(canvas);
 

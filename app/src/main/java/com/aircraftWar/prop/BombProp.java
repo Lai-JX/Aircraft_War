@@ -3,7 +3,7 @@ package com.aircraftWar.prop;
 import com.aircraftWar.Observer.Subscriber;
 import com.aircraftWar.aircraft.HeroAircraft;
 import com.aircraftWar.application.AbstractGame;
-import com.aircraftWar.application.MusicThread;
+//import com.aircraftWar.application.MusicThread;
 
 import java.util.ArrayList;
 

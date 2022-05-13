@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AircraftWar">
+        <service android:name="com.aircraftWar.application.MusicService"/>
         <activity
             android:name="com.aircraftWar.application.EasyModeGame"
+            android:exported="false" />
+        <activity
+            android:name="com.aircraftWar.application.CommonModeGame"
+            android:exported="false" />
+        <activity
+            android:name="com.aircraftWar.application.DifficultModeGame"
             android:exported="false" />
         <activity
             android:name="com.aircraftWar.application.MainActivity"

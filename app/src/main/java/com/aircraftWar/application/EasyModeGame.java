@@ -24,13 +24,15 @@ public class EasyModeGame extends AbstractGame{
         heroAircraft = HeroAircraft.getInstance(1000);
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
+        super.context = this;
+        super.intent = new Intent(this,MusicService.class);
 //        ImageManager imageManager = new ImageManager(this);
 //        Log.i("h",String.valueOf(ImageManager.hero.getHeight()));
 
         // 获取来自主页面的信息
-        Intent intent = getIntent();
-        soundOpen = intent.getBooleanExtra("soundOpen",true);
-        System.out.println(soundOpen);
+        Intent intentFromMain = getIntent();
+        soundOpen = intentFromMain.getBooleanExtra("soundOpen",true);
+//        System.out.println(soundOpen);
 
         // 游戏开始
         action();
@@ -45,6 +47,13 @@ public class EasyModeGame extends AbstractGame{
     }
 
     public void action(){
+
+        startService(intent);
+
+        if(soundOpen){
+//            bgm = new MusicThread(this,R.raw.bgm);
+//            bgm.start();
+        }
 //        init();
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
@@ -53,11 +62,13 @@ public class EasyModeGame extends AbstractGame{
 //            Log.i("time",String.valueOf(time));
             // bgm和boss_bgm线程是否失效，失效则重新添加，以实现循环播放
 //            if(soundOpen && !bgm.isAlive()){
-//                bgm = new MusicThread("src/videos/bgm.wav");
+//                Log.i("sound","bgm");
+//                System.out.println(bgm.isAlive());
+//                bgm = new MusicThread(this,R.raw.bgm);
 //                bgm.start();
 //            }
 //            if(soundOpen && BossEnemy.bossNum==1 && !boss_bgm.isAlive()){
-//                boss_bgm = new MusicThread("src/videos/boss_bgm.wav");
+//                boss_bgm = new MusicThread(this,R.raw.bgm_boss);
 //                boss_bgm.start();
 //            }
 //
@@ -96,8 +107,6 @@ public class EasyModeGame extends AbstractGame{
             postProcessAction();
 //
 
-            //每个时刻重绘界面
-            //repaint();
 
 
 
@@ -106,11 +115,15 @@ public class EasyModeGame extends AbstractGame{
             if (heroAircraft.getHp() <= 0) {
                 // 游戏结束音乐
                 if(soundOpen){
-//                    new MusicThread("src/videos/game_over.wav").start();
-//                    bgm.setStop(true);
+//                    new MusicThread(this,R.raw.game_over).start();
+//                    bgm.stopMusic();
                     if(BossEnemy.bossNum == 1){
-//                        boss_bgm.setStop(true);
+
+                        intent.putExtra("music","bgm_boss_close");
+                        startService(intent);
                     }
+                    intent.putExtra("music","game_over");
+                    startService(intent);
                 }
 
                 // 游戏结束

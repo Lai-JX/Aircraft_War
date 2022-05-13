@@ -4,7 +4,7 @@ import static java.lang.Math.min;
 
 import com.aircraftWar.aircraft.HeroAircraft;
 import com.aircraftWar.application.AbstractGame;
-import com.aircraftWar.application.MusicThread;
+//import com.aircraftWar.application.MusicThread;
 import com.aircraftWar.strategy.DirectShoot;
 import com.aircraftWar.strategy.ScatterShoot;
 

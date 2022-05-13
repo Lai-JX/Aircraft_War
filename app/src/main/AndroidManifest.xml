@@ -13,6 +13,12 @@
             android:name="com.aircraftWar.application.EasyModeGame"
             android:exported="false" />
         <activity
+            android:name="com.aircraftWar.application.CommonModeGame"
+            android:exported="false" />
+        <activity
+            android:name="com.aircraftWar.application.DifficultModeGame"
+            android:exported="false" />
+        <activity
             android:name="com.aircraftWar.application.MainActivity"
             android:exported="true">
             <intent-filter>

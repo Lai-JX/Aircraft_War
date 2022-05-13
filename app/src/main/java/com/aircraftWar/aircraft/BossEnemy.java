@@ -20,7 +20,7 @@ public class BossEnemy extends AbstractEnemyAircraft{
     }
 
     public List<BaseBullet> executeStrategy(){
-        return strategy.shoot(this.locationX,this.locationY,this.speedY,1, 0,2);
+        return strategy.shoot(this.locationX,this.locationY,this.speedY,1, 5,2);
     }
 
 

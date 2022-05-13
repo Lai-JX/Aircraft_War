@@ -54,8 +54,5 @@ public class BulletProp extends AbstractProp{
         effect = new Thread(r);
         effect.start();
         System.out.println("FireSupply active!\n");
-        if(AbstractGame.soundOpen) {
-//            new MusicThread("src/videos/get_supply.wav").start();
-        }
     }
 }

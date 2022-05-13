@@ -29,12 +29,13 @@ public class CommonModeGame extends AbstractGame{
         heroAircraft = HeroAircraft.getInstance(1000);
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
+        super.intent = new Intent(this,MusicService.class);
 //        ImageManager imageManager = new ImageManager(this);
 //        Log.i("h",String.valueOf(ImageManager.hero.getHeight()));
         System.out.println("获取intent");
         // 获取来自主页面的信息
-        Intent intent = getIntent();
-        soundOpen = intent.getBooleanExtra("soundOpen",true);
+        Intent intentFromMain = getIntent();
+        soundOpen = intentFromMain.getBooleanExtra("soundOpen",true);
         System.out.println(soundOpen);
         System.out.println("获取intent成功，游戏开始");
         // 游戏开始
@@ -50,31 +51,21 @@ public class CommonModeGame extends AbstractGame{
     }
 
     public void action() {
-//        if(chooseDifficulty.isSoundOpen()){
-//            bgm = new MusicThread("src/videos/bgm.wav");
-//            bgm.start();
-//        }
+
+        startService(intent);
+
         System.out.println("普通模式：");
         System.out.println("\t产生boss敌机的阈值:300\t最大敌机数:7\tboss敌机血量:400" +
                 "\n\t英雄机子弹伤害:30\t敌机子弹初始伤害:10" +
                 "\n\t精英敌机初始速度:13\t" + "精英敌机血量:60\t普通敌机初始速度:10\t普通敌机血量:30" +
                 "\n\t击落boss敌机得分:40\t击落精英敌机得分:10\t击落普通敌机得分:5" +
                 "\n\t除boss机外提升难度的时间间隔:5s" +
-                "\n\t精英敌机概率初始值为:0.3\t敌机产生周期初始值为:500ms\t不产生道具的概率初始值为:0.25\t子弹道具持续时间初始值为5s");
+                "\n\t精英敌机概率初始值为:0.3\t敌机产生周期初始值为:500ms\t不产生道具的概率初始值为:0.25\t子弹道具持续时间初始值为10s");
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
 
             time += timeInterval;
-            // bgm和boss_bgm线程是否失效，失效则重新添加，以实现循环播放
-//            if(chooseDifficulty.isSoundOpen() && !bgm.isAlive()){
-//                bgm = new MusicThread("src/videos/bgm.wav");
-//                bgm.start();
-//            }
-//            if(chooseDifficulty.isSoundOpen() && BossEnemy.bossNum==1 && !boss_bgm.isAlive()){
-//                boss_bgm = new MusicThread("src/videos/boss_bgm.wav");
-//                boss_bgm.start();
-//            }
             // 每隔5秒增加难度
             if(time % 5100 == 0){
                 eliteEnemyProbability += 0.01;
@@ -91,12 +82,6 @@ public class CommonModeGame extends AbstractGame{
 
             // 周期性执行（控制频率）
             if (timeCountAndNewCycleJudge()) {
-
-
-//                System.out.println(time);
-
-
-
                 // 飞机射出子弹
                 shootAction();
             }
@@ -127,22 +112,20 @@ public class CommonModeGame extends AbstractGame{
             // 游戏结束检查
             if (heroAircraft.getHp() <= 0) {
                 // 游戏结束音乐
-//                if(chooseDifficulty.isSoundOpen()){
-//                    new MusicThread("src/videos/game_over.wav").start();
-//                    bgm.setStop(true);
-//                    if(BossEnemy.bossNum == 1){
-//                        boss_bgm.setStop(true);
-//                    }
-//                }
+                if(soundOpen){
+                    if(BossEnemy.bossNum == 1){
+                        intent.putExtra("music","bgm_boss_close");
+                        startService(intent);
+                    }
+                    intent.putExtra("music","game_over");
+                    startService(intent);
+                }
 
                 // 游戏结束
                 gameOverFlag = true;
                 executorService.shutdown();
 
                 System.out.println("Game Over!");
-//                synchronized (FrameThread.class){// 释放线程game，回到main
-//                    notifyAll();
-//                }
             }
 
         };

@@ -32,12 +32,13 @@ public class DifficultModeGame extends AbstractGame{
         heroAircraft = HeroAircraft.getInstance(1000);
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
+        super.intent = new Intent(this,MusicService.class);
 //        ImageManager imageManager = new ImageManager(this);
 //        Log.i("h",String.valueOf(ImageManager.hero.getHeight()));
         System.out.println("获取intent");
         // 获取来自主页面的信息
-        Intent intent = getIntent();
-        soundOpen = intent.getBooleanExtra("soundOpen",true);
+        Intent intentFromMain = getIntent();
+        soundOpen = intentFromMain.getBooleanExtra("soundOpen",true);
         System.out.println(soundOpen);
         System.out.println("获取intent成功，游戏开始");
         // 游戏开始
@@ -53,10 +54,8 @@ public class DifficultModeGame extends AbstractGame{
     }
 
     public void action(){
-//        if(chooseDifficulty.isSoundOpen()){
-//            bgm = new MusicThread("src/videos/bgm.wav");
-//            bgm.start();
-//        }
+        startService(intent);
+
         System.out.println("困难模式：");
         System.out.println("\t产生boss敌机的初始阈值:200\t最大敌机数:10\tboss敌机初始血量:200" +
                 "\n\t英雄机子弹伤害:30\t敌机子弹初始伤害:10" +
@@ -69,15 +68,7 @@ public class DifficultModeGame extends AbstractGame{
         Runnable task = () -> {
 
             time += timeInterval;
-            // bgm和boss_bgm线程是否失效，失效则重新添加，以实现循环播放
-//            if(chooseDifficulty.isSoundOpen() && !bgm.isAlive()){
-//                bgm = new MusicThread("src/videos/bgm.wav");
-//                bgm.start();
-//            }
-//            if(chooseDifficulty.isSoundOpen() && BossEnemy.bossNum==1 && !boss_bgm.isAlive()){
-//                boss_bgm = new MusicThread("src/videos/boss_bgm.wav");
-//                boss_bgm.start();
-//            }
+
 
             // 每隔4秒提升难度
             if(time % 3990 == 0){
@@ -101,11 +92,11 @@ public class DifficultModeGame extends AbstractGame{
             }
             // 每隔enemyCycleDuration产生敌机
             if(enemy_timeCountAndNewCycleJudge()){
-//                if(BossEnemy.bossNum == 0 && counter>creatBossScore){
-//                    bossBlood += 50;
-//                    creatBossScore -= 5;
-//                    System.out.println("提升难度！boss敌机血量:"+bossBlood+"\t产生boss机的阈值:"+creatBossScore);
-//                }
+                if(BossEnemy.bossNum == 0 && counter>creatBossScore){
+                    bossBlood += 50;
+                    creatBossScore -= 5;
+                    System.out.println("提升难度！boss敌机血量:"+bossBlood+"\t产生boss机的阈值:"+creatBossScore);
+                }
                 // 产生敌机
                 // 参数:精英敌机出现的概论eliteEnemyProbability，产生boss机的阈值
                 creatEnemyAircraft(creatBossScore,10,bossBlood,
@@ -130,23 +121,21 @@ public class DifficultModeGame extends AbstractGame{
 
             // 游戏结束检查
             if (heroAircraft.getHp() <= 0) {
-//                // 游戏结束音乐
-//                if(chooseDifficulty.isSoundOpen()){
-//                    new MusicThread("src/videos/game_over.wav").start();
-//                    bgm.setStop(true);
-//                    if(BossEnemy.bossNum == 1){
-//                        boss_bgm.setStop(true);
-//                    }
-//                }
+                // 游戏结束音乐
+                if(soundOpen){
+                    if(BossEnemy.bossNum == 1){
+                        intent.putExtra("music","bgm_boss_close");
+                        startService(intent);
+                    }
+                    intent.putExtra("music","game_over");
+                    startService(intent);
+                }
 
                 // 游戏结束
                 gameOverFlag = true;
                 executorService.shutdown();
 
                 System.out.println("Game Over!");
-//                synchronized (FrameThread.class){// 释放线程game，回到main
-//                    notifyAll();
-//                }
             }
 
         };

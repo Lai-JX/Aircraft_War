@@ -50,7 +50,6 @@ public class AbstractGame extends AppCompatActivity {
 //    protected FrameLayout.LayoutParams params;
     protected GameSurfaceView mSurfaceView; // 绘制游戏画面
     public static boolean soundOpen;    // 是否开启音效
-    protected Context context;
     protected Intent intent;
 //    protected MusicService.Binder binder = null;
 
@@ -58,7 +57,6 @@ public class AbstractGame extends AppCompatActivity {
      * Scheduled 线程池，用于任务调度
      */
     protected final ScheduledExecutorService executorService;
-    protected HeroController heroController;
 
     /**
      * 时间间隔(ms)，控制刷新频率
@@ -184,8 +182,8 @@ public class AbstractGame extends AppCompatActivity {
                         boosBlood
                 ));
                 if(soundOpen){
-//                    boss_bgm = new MusicThread(context,R.raw.bgm_boss);
-//                    boss_bgm.start();
+                    intent.putExtra("music","bgm_boss");
+                    startService(intent);
                 }
 
             }

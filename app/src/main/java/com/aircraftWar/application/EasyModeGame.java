@@ -30,7 +30,7 @@ public class EasyModeGame extends AbstractGame{
 
         // 获取来自主页面的信息
         Intent intentFromMain = getIntent();
-        soundOpen = intentFromMain.getBooleanExtra("soundOpen",true);
+        soundOpen = intentFromMain.getExtras().getBoolean("soundOpen");
 //        System.out.println(soundOpen);
 
         // 游戏开始
@@ -46,8 +46,9 @@ public class EasyModeGame extends AbstractGame{
     }
 
     public void action(){
-
-        startService(intent);
+        if(soundOpen){
+            startService(intent);
+        }
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {

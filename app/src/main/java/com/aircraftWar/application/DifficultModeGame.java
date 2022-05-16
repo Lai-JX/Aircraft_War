@@ -54,7 +54,9 @@ public class DifficultModeGame extends AbstractGame{
     }
 
     public void action(){
-        startService(intent);
+        if(soundOpen){
+            startService(intent);
+        }
 
         System.out.println("困难模式：");
         System.out.println("\t产生boss敌机的初始阈值:200\t最大敌机数:10\tboss敌机初始血量:200" +

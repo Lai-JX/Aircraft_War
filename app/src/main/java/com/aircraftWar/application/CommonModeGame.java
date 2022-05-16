@@ -52,7 +52,9 @@ public class CommonModeGame extends AbstractGame{
 
     public void action() {
 
-        startService(intent);
+        if(soundOpen){
+            startService(intent);
+        }
 
         System.out.println("普通模式：");
         System.out.println("\t产生boss敌机的阈值:300\t最大敌机数:7\tboss敌机血量:400" +

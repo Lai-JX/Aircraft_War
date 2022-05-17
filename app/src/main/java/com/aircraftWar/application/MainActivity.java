@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_common_mode).setOnClickListener(this);
         findViewById(R.id.btn_difficult_mode).setOnClickListener(this);
         findViewById(R.id.sound_switch).setOnClickListener(this);
+        findViewById(R.id.btn_login).setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(v.getId()==R.id.btn_difficult_mode){
             Intent intent = new Intent(this,DifficultModeGame.class);
             intent.putExtra("soundOpen",soundOpen);      // 添加要传递给游戏界面的参数
+            startActivity(intent);
+        }else if(v.getId()==R.id.btn_login){
+            Intent intent = new Intent(this,LoginActivity.class);
+//            intent.putExtra("soundOpen",soundOpen);
             startActivity(intent);
         }
     }

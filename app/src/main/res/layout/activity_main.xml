@@ -47,6 +47,18 @@
         android:layout_gravity="center"
         android:id="@+id/btn_difficult_mode"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:backgroundTint="@color/grey"
+        android:layout_marginBottom="25dp"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:id="@+id/btn_login"
+        />
 
     <Switch
         android:layout_width="wrap_content"

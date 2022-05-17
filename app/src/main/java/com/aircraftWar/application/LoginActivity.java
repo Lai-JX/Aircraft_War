@@ -31,7 +31,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText etPwd;
     private Button btgetLogin,btpostLogin;
     //两个地址任意一个都可以访问http://localhost:8080/LoginInfo?username=admin&password=123456
-    private String LOGIN_URL="http://10.0.2.2:8080/LoginInfo";      //Android中默认将我们本地电脑的地址映射为10.0.2.2
+//    private String LOGIN_URL="http://10.0.2.2:8080/LoginInfo";      //Android中默认将我们本地电脑的地址映射为10.0.2.2
+    // 开启映射后
+    private String LOGIN_URL="http://364ja28062.zicp.vip/LoginInfo";
 //    private String LOGIN_URL="http://10.250.205.90:8080/LoginInfo";   //服务器地址
 
     @Override

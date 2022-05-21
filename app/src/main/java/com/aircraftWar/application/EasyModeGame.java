@@ -2,15 +2,14 @@ package com.aircraftWar.application;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
-import android.widget.FrameLayout;
 
+import com.aircraftWar.Dao.UserData;
 import com.aircraftWar.aircraft.BossEnemy;
 import com.aircraftWar.aircraft.HeroAircraft;
 import com.example.aircraftwar.R;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class EasyModeGame extends AbstractGame{
@@ -111,6 +110,14 @@ public class EasyModeGame extends AbstractGame{
                 gameOverFlag = true;
                 executorService.shutdown();
                 System.out.println("Game Over!");
+                String userID = "hi";
+                UserData userData = UserData.userData.getUserData();
+                userData.setDate(new Date());
+                userData.setScore(score);
+                Intent intent = new Intent(this, EnterNameActivity.class);
+                System.out.println("xxx");
+                startActivity(intent);
+
             }
 
         };

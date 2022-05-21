@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
+import com.aircraftWar.Dao.UserData;
 import com.aircraftWar.aircraft.BossEnemy;
 import com.aircraftWar.aircraft.HeroAircraft;
 import com.example.aircraftwar.R;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class CommonModeGame extends AbstractGame{
@@ -126,8 +128,13 @@ public class CommonModeGame extends AbstractGame{
                 // 游戏结束
                 gameOverFlag = true;
                 executorService.shutdown();
-
                 System.out.println("Game Over!");
+                UserData userData = UserData.userData.getUserData();
+                userData.setDate(new Date());
+                userData.setScore(score);
+                Intent intent = new Intent(this, EnterNameActivity.class);
+                System.out.println("xxx");
+                startActivity(intent);
             }
 
         };

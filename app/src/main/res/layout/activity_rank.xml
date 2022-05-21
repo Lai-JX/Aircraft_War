@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/model"
+        android:textSize="30dp"
+        style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+        android:textStyle="italic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TableLayout
+        android:id="@+id/tableTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+        <TableRow
+            android:layout_margin="0.5dp">
+            <TextView
+                android:id="@+id/rank"
+                android:text="   排名"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/id"
+                android:text=" 名称"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:text="得分"
+                android:id="@+id/score"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/time"
+                android:text="时间"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+        <TableRow
+            android:layout_margin="0.5dp">
+            <TextView
+                android:id="@+id/rankData"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/idData"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/scoreData"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/timeData"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

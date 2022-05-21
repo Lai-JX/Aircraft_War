@@ -73,7 +73,13 @@ public class GameSurfaceView  extends SurfaceView implements
     public void run() {
         while(mbLoop){
 //            Log.i("draw","draw");
-            draw();
+            synchronized (mSurfaceHolder) {
+                draw();
+            }
+            try{
+                Thread.sleep(2);
+            }
+            catch (Exception e){}
         }
 
     }

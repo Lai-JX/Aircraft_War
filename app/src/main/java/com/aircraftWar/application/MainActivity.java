@@ -12,6 +12,7 @@ import com.example.aircraftwar.R;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
+    public static int difficulty;
     private boolean soundOpen = true;
 
 
@@ -40,11 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("sound "+soundOpen);
         }
         if(v.getId()==R.id.btn_easy_mode){
+            difficulty = 1;
             Intent intent = new Intent(this,EasyModeGame.class);
             intent.putExtra("soundOpen",soundOpen);      // 添加要传递给游戏界面的参数
             startActivity(intent);
         }
         else if(v.getId()==R.id.btn_common_mode){
+            difficulty = 2;
             System.out.println("开始选择游戏模式");
             Intent intent = new Intent(this,CommonModeGame.class);
             System.out.println("选择游戏模式完毕");
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("startActivity完毕");
         }
         else if(v.getId()==R.id.btn_difficult_mode){
+            difficulty = 3;
             Intent intent = new Intent(this,DifficultModeGame.class);
             intent.putExtra("soundOpen",soundOpen);      // 添加要传递给游戏界面的参数
             startActivity(intent);

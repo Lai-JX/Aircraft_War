@@ -18,9 +18,11 @@ public class EasyModeGame extends AbstractGame{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        score = 0;
         setContentView(R.layout.activity_game);
         mSurfaceView = new GameSurfaceView(this,"easy");
-        heroAircraft = HeroAircraft.getInstance(1000);
+        heroAircraft = HeroAircraft.getInstance(1000,gameOverFlag);
+        gameOverFlag = false;
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
         super.intent = new Intent(this,MusicService.class);

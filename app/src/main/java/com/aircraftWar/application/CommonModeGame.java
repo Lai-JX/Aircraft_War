@@ -16,6 +16,7 @@ public class CommonModeGame extends AbstractGame{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        score = 0;
         // 敌机产生周期
         enemyCycleDuration = 500;
         // 不产生道具的概率
@@ -28,7 +29,9 @@ public class CommonModeGame extends AbstractGame{
         setContentView(R.layout.activity_game);
         mSurfaceView = new GameSurfaceView(this,"common");
         System.out.println("生成背景成功");
-        heroAircraft = HeroAircraft.getInstance(1000);
+        heroAircraft = HeroAircraft.getInstance(2000,gameOverFlag);
+//        heroAircraft.setHp(2000);
+        gameOverFlag = false;
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
         super.intent = new Intent(this,MusicService.class);

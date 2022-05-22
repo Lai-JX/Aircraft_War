@@ -79,7 +79,7 @@ public class AbstractGame extends AppCompatActivity {
 
     protected int enemyNumber = 0;
 
-    protected boolean gameOverFlag = false;
+    protected static boolean gameOverFlag = false;
 
 
 

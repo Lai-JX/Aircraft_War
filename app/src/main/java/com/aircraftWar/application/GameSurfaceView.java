@@ -151,7 +151,7 @@ public class GameSurfaceView  extends SurfaceView implements
         float y = 60;
         canvas.drawText("SCORE:" + AbstractGame.score, x, y,textPaint);
         y = y + 80;
-        canvas.drawText("LIFE:" + Double.parseDouble(String.format("%.2f",this.heroAircraft.getHp())), x, y,textPaint);
+        canvas.drawText("LIFE:" + Double.parseDouble(String.format("%.1f",this.heroAircraft.getHp())), x, y,textPaint);
 //				解锁
         mSurfaceHolder.unlockCanvasAndPost(canvas);
 

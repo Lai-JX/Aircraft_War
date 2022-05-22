@@ -1,5 +1,6 @@
 package com.aircraftWar.aircraft;
 
+import com.aircraftWar.application.AbstractGame;
 import com.aircraftWar.application.ImageManager;
 import com.aircraftWar.application.MainActivity;
 import com.aircraftWar.basic.AbstractFlyingObject;
@@ -31,10 +32,10 @@ public class HeroAircraft extends AbstractAircraft {
         this.strategy = strategy;
     }
 
-    public static HeroAircraft getInstance(int blood){
-        if(heroAircraft == null){
+    public static HeroAircraft getInstance(int blood,boolean restart){
+        if(heroAircraft == null || restart){
             synchronized (HeroAircraft.class){
-                if(heroAircraft == null){
+                if(heroAircraft == null|| restart){
                     heroAircraft = new HeroAircraft(
                             MainActivity.WINDOW_WIDTH / 2,
                             MainActivity.WINDOW_HEIGHT -219,//-ImageManager.hero.getHeight() ,//550
@@ -46,6 +47,11 @@ public class HeroAircraft extends AbstractAircraft {
         }
         return heroAircraft;
     }
+
+    public static void setHp(int hp) {
+        HeroAircraft.heroAircraft.hp = hp;
+    }
+
     public void setStrategy(StrategyInterface strategy){
         this.strategy = strategy;
     }

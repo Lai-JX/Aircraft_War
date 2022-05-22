@@ -82,7 +82,7 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
             }
             ois = new MyObjectInputStream(fis);
             dataList = new ArrayList<>();
-            while(fis.available()>0){
+            while(fis!=null && fis.available()>0){
                 System.out.println("fis.available():"+fis.available());
                 dataList.add((UserData) ois.readObject());
                 System.out.println("正在读取数据");

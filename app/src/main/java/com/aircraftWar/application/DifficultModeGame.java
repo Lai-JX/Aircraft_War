@@ -34,7 +34,7 @@ public class DifficultModeGame extends AbstractGame{
         System.out.println("生成背景成功");
         heroAircraft = HeroAircraft.getInstance(10000,gameOverFlag);
 //        heroAircraft.setHp(10000);
-        gameOverFlag = false;
+
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
         super.intent = new Intent(this,MusicService.class);
@@ -60,6 +60,10 @@ public class DifficultModeGame extends AbstractGame{
 
     public void action(){
         if(soundOpen){
+            if(gameOverFlag){
+                intent.putExtra("music","bgm");
+                gameOverFlag = false;
+            }
             startService(intent);
         }
 

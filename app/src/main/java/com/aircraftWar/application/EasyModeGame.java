@@ -22,7 +22,7 @@ public class EasyModeGame extends AbstractGame{
         setContentView(R.layout.activity_game);
         mSurfaceView = new GameSurfaceView(this,"easy");
         heroAircraft = HeroAircraft.getInstance(1000,gameOverFlag);
-        gameOverFlag = false;
+
         setContentView(mSurfaceView);
         super.onCreate(savedInstanceState);
         super.intent = new Intent(this,MusicService.class);
@@ -48,6 +48,10 @@ public class EasyModeGame extends AbstractGame{
 
     public void action(){
         if(soundOpen){
+            if(gameOverFlag){
+                intent.putExtra("music","bgm");
+                gameOverFlag = false;
+            }
             startService(intent);
         }
 

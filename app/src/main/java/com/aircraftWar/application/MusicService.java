@@ -40,12 +40,16 @@ public class MusicService extends Service{
         }else if("game_over".equals(music)){
             player_game_over = MediaPlayer.create(this,R.raw.game_over);
             player_game_over.start();
+            stopMusic(player_bgm);
 //            stopAllMusic();
         }else if("get_supply".equals(music)){
             player_get_supply = MediaPlayer.create(this,R.raw.get_supply);
             player_get_supply.start();
         }else if("bgm_boss_close".equals(music)){
             player_bgm_boss.stop();
+        }else if("bgm".equals(music)){
+            player_bgm = MediaPlayer.create(this,R.raw.bgm);
+            player_bgm.start();
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -97,8 +101,9 @@ public class MusicService extends Service{
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         stopAllMusic();
+        super.onDestroy();
+
     }
 
 

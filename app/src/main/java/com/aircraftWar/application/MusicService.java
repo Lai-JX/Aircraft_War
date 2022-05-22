@@ -46,10 +46,11 @@ public class MusicService extends Service{
             player_get_supply = MediaPlayer.create(this,R.raw.get_supply);
             player_get_supply.start();
         }else if("bgm_boss_close".equals(music)){
-            player_bgm_boss.stop();
+            stopMusic(player_bgm_boss);
         }else if("bgm".equals(music)){
             player_bgm = MediaPlayer.create(this,R.raw.bgm);
             player_bgm.start();
+            player_bgm.setLooping(true);
         }
         return super.onStartCommand(intent, flags, startId);
     }

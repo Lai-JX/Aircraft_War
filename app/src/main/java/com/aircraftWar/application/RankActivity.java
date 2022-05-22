@@ -1,8 +1,10 @@
 package com.aircraftWar.application;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -31,7 +33,8 @@ import java.util.List;
 public class RankActivity extends AppCompatActivity implements View.OnClickListener{
     private final int H = ViewGroup.LayoutParams.WRAP_CONTENT;
     private final int W = ViewGroup.LayoutParams.MATCH_PARENT;
-    private ScrollView scrollView;
+    private AlertDialog.Builder builder;
+
     private FileInputStream fis = null;
     private FileOutputStream fos = null;
     private ObjectInputStream ois = null;
@@ -48,15 +51,16 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_rank);
 
         findViewById(R.id.btn_delete).setOnClickListener(this);
-        scrollView = findViewById(R.id.table);
 
-//        List<UserData> dataList = null;
+        builder = new AlertDialog.Builder(this);
+
         readFromFileAndShow();
         deleteIndex = new ArrayList<>();
 
     }
 
     public void readFromFileAndShow(){
+
         dataList = null;
         try {
             System.out.println("准备读取数据");
@@ -148,37 +152,58 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("所有要删除的数据"+deleteIndex);
 
         }else if(v.getId() == R.id.btn_delete){
+            delete();
+        }
+    }
 
-            for(int i = 0; i< deleteIndex.size();i++){
-                System.out.println(dataList.remove(deleteIndex.get(i).intValue()));
+    // 先判断是否确认删除
+    private void delete(){
+        System.out.println("xxx");
+        builder.setMessage("是否确定删除选中的数据")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        confirmDelete();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        AlertDialog ad = builder.create();
+        ad.show();
+    }
+    // 确认删除后
+    private void confirmDelete(){
+        for(int i = 0; i< deleteIndex.size();i++){
+            System.out.println(dataList.remove(deleteIndex.get(i).intValue()));
+        }
+        deleteIndex.clear();
+        // 写入文件
+
+        try{
+            if(MainActivity.difficulty == 1) {
+                fos =openFileOutput("easyGameData",MODE_PRIVATE);
             }
-            deleteIndex.clear();
-            // 写入文件
-
-            try{
-                if(MainActivity.difficulty == 1) {
-                    fos =openFileOutput("easyGameData",MODE_PRIVATE);
-                }
-                else if(MainActivity.difficulty == 2){
-                    fos = openFileOutput("commonGameData",MODE_PRIVATE);
-                }
-                else if(MainActivity.difficulty == 3){
-                    fos = openFileOutput("hardGameData",MODE_PRIVATE);
-                }
-                oos = new MyObjectOutputStream(fos);
-                for(int i = 0;i<dataList.size();i++){
+            else if(MainActivity.difficulty == 2){
+                fos = openFileOutput("commonGameData",MODE_PRIVATE);
+            }
+            else if(MainActivity.difficulty == 3){
+                fos = openFileOutput("hardGameData",MODE_PRIVATE);
+            }
+            oos = new MyObjectOutputStream(fos);
+            for(int i = 0;i<dataList.size();i++){
 //                    System.out.println(dataList.get(i));
-                    oos.writeObject(dataList.get(i));
-                }
-                oos.close();
-
-                readFromFileAndShow();
-
-            }catch (Exception e){
-                e.printStackTrace();
+                oos.writeObject(dataList.get(i));
             }
+            oos.close();
 
+            readFromFileAndShow();
 
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

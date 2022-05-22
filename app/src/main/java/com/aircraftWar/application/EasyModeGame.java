@@ -115,7 +115,7 @@ public class EasyModeGame extends AbstractGame{
                 userData.setDate(new Date());
                 userData.setScore(score);
                 Intent intent = new Intent(this, EnterNameActivity.class);
-                System.out.println("xxx");
+//                System.out.println("xxx");
                 startActivity(intent);
 
             }

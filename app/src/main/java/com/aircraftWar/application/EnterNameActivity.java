@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.aircraftWar.Dao.UserData;
+import com.aircraftWar.GameDataDao.GameData;
 import com.aircraftWar.myIOFunction.MyObjectOutputStream;
 import com.example.aircraftwar.R;
 
@@ -33,8 +33,8 @@ public class EnterNameActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v){
         if(v.getId() == R.id.确认){
             String userID = edit.getText().toString();
-            UserData.userData.setPlayerID(userID);
-            UserData userData = UserData.userData.getUserData();
+            GameData.gameData.setPlayerID(userID);
+            GameData gameData = GameData.gameData.getUserData();
             try {
                 FileOutputStream out = null;
                 if(MainActivity.difficulty == 1) {
@@ -47,7 +47,7 @@ public class EnterNameActivity extends AppCompatActivity implements View.OnClick
                     out = openFileOutput("hardGameData", Context.MODE_APPEND);
                 }
                 ObjectOutputStream oos = new MyObjectOutputStream(out);
-                oos.writeObject(userData);
+                oos.writeObject(gameData);
                 oos.close();
                 Intent intent = new Intent(this, RankActivity.class);
                 startActivity(intent);

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
-import com.aircraftWar.Dao.UserData;
+import com.aircraftWar.GameDataDao.GameData;
 import com.aircraftWar.aircraft.BossEnemy;
 import com.aircraftWar.aircraft.HeroAircraft;
 import com.example.aircraftwar.R;
@@ -146,9 +146,9 @@ public class DifficultModeGame extends AbstractGame{
                 gameOverFlag = true;
                 executorService.shutdown();
                 System.out.println("Game Over!");
-                UserData userData = UserData.userData.getUserData();
-                userData.setDate(new Date());
-                userData.setScore(score);
+                GameData gameData = GameData.gameData.getUserData();
+                gameData.setDate(new Date());
+                gameData.setScore(score);
                 Intent intent = new Intent(this, EnterNameActivity.class);
                 System.out.println("xxx");
                 startActivity(intent);

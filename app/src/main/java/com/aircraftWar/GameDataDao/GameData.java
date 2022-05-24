@@ -1,4 +1,4 @@
-package com.aircraftWar.Dao;
+package com.aircraftWar.GameDataDao;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -9,25 +9,25 @@ import java.util.Objects;
  * @author 200110501符悦泽
  * @create 2022/4/17
  */
-public class UserData implements Serializable {
+public class GameData implements Serializable {
     private static final long serialVersionUID =-166739026174189761L;
     private String playerID = null;
     private int score;
     private Date date;
 
-    public static UserData userData = new UserData(null,0,null);
-    public UserData(String playerID, int score, Date date) {
+    public static GameData gameData = new GameData(null,0,null);
+    public GameData(String playerID, int score, Date date) {
         this.playerID = playerID;
         this.score = score;
         this.date = date;
     }
 
-    public UserData getUserData() {
-        userData.date = this.date;
-        userData.playerID = this.playerID;
-        userData.score = this.score;
+    public GameData getUserData() {
+        gameData.date = this.date;
+        gameData.playerID = this.playerID;
+        gameData.score = this.score;
 
-        return userData;
+        return gameData;
     }
 
     public String getPlayerID() {
@@ -35,7 +35,7 @@ public class UserData implements Serializable {
     }
 
     public void setPlayerID(String playerID) {
-        userData.playerID = playerID;
+        gameData.playerID = playerID;
     }
 
     public int getScore() {
@@ -64,8 +64,8 @@ public class UserData implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserData userData = (UserData) o;
-        return score == userData.score && Objects.equals(playerID, userData.playerID) && Objects.equals(date, userData.date);
+        GameData gameData = (GameData) o;
+        return score == gameData.score && Objects.equals(playerID, gameData.playerID) && Objects.equals(date, gameData.date);
     }
 
     @Override

@@ -63,7 +63,7 @@
         />
 
     <Button
-        android:id="@+id/btn_login2"
+        android:id="@+id/btn_register"
         style="@style/MyBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

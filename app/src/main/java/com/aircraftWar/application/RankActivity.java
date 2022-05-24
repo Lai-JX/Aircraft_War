@@ -3,7 +3,6 @@ package com.aircraftWar.application;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +10,10 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.aircraftWar.Dao.UserData;
+import com.aircraftWar.GameDataDao.GameData;
 import com.aircraftWar.myIOFunction.MyObjectInputStream;
 import com.aircraftWar.myIOFunction.MyObjectOutputStream;
 import com.example.aircraftwar.R;
@@ -40,7 +37,7 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
     private FileOutputStream fos = null;
     private ObjectInputStream ois = null;
     private ObjectOutputStream oos = null;
-    private List<UserData> dataList;
+    private List<GameData> dataList;
     private ArrayList<Integer> deleteIndex;
     private TableLayout tab;
     private ArrayList<String> tabCol = new ArrayList<>();
@@ -84,15 +81,15 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
             dataList = new ArrayList<>();
             while(fis!=null && fis.available()>0){
                 System.out.println("fis.available():"+fis.available());
-                dataList.add((UserData) ois.readObject());
+                dataList.add((GameData) ois.readObject());
                 System.out.println("正在读取数据");
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        dataList.sort(new Comparator<UserData>() {
+        dataList.sort(new Comparator<GameData>() {
             @Override
-            public int compare(UserData o1, UserData o2) {
+            public int compare(GameData o1, GameData o2) {
                 return o2.getScore() - o1.getScore();
             }
         });
@@ -106,7 +103,7 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
             mTableRow tabRow = new mTableRow(this);
             tabRow.setIndex(row);
             tabRow.setOnClickListener(this);
-            UserData userData = dataList.get(row);
+            GameData gameData = dataList.get(row);
 
             //控制列数
             for (int col = 0; col < colSize; col++) {
@@ -117,12 +114,12 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
                 if (col == 0) {
                     tv.setText("第" + (row + 1) + "名");
                 } else if (col == 1) {
-                    tv.setText(userData.getPlayerID());
+                    tv.setText(gameData.getPlayerID());
                 } else if (col == 2) {
-                    tv.setText(String.valueOf(userData.getScore()));
+                    tv.setText(String.valueOf(gameData.getScore()));
                 } else if (col == 3) {
                     SimpleDateFormat date = new SimpleDateFormat("yyyy--MM--dd HH");
-                    tv.setText(date.format(userData.getDate()));
+                    tv.setText(date.format(gameData.getDate()));
 
                 }
                 tv.setGravity(Gravity.CENTER);

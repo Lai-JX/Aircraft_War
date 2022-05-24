@@ -2,6 +2,7 @@ package com.aircraftWar.application;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,7 +30,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText etName;
     private EditText etPwd;
-    private Button btgetLogin,btpostLogin;
+    private Button btgetLogin,btregister;
     //两个地址任意一个都可以访问http://localhost:8080/LoginInfo?username=admin&password=123456
 //    private String LOGIN_URL="http://10.0.2.2:8080/LoginInfo";      //Android中默认将我们本地电脑的地址映射为10.0.2.2
     // 开启映射后
@@ -44,59 +45,70 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etName = findViewById(R.id.et_username);
         etPwd = findViewById(R.id.et_password);
         btgetLogin = findViewById(R.id.btn_login);
-//        btpostLogin = findViewById(R.id.btn_login);
+        btregister = findViewById(R.id.btn_register);
 
+        //注册
+        btregister.setOnClickListener(this);
         btgetLogin.setOnClickListener(this);
-//        btpostLogin.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
-        final View lv =v;
-        final Map<String, String> paramsmap = new HashMap<>();
-        paramsmap.put("username", etName.getText().toString());
-        paramsmap.put("password", etPwd.getText().toString());
+        if(v.getId()==R.id.btn_register){
+            Intent intent = new Intent(this,RegisterActivity.class);
+            startActivity(intent);
+        }
+       else if(v.getId()==R.id.btn_login) {
 
-        new Thread() {
-            @Override
-            public void run() {
-                String loginresult = "";
-                try {
-                    switch (lv.getId()) {
-                        case R.id.btn_login:
-                            loginresult = LoginByGet(LOGIN_URL, paramsmap);
-                            break;
+            final View lv = v;
+            final Map<String, String> paramsmap = new HashMap<>();
+            paramsmap.put("username", etName.getText().toString());
+            paramsmap.put("password", etPwd.getText().toString());
+
+            new Thread() {
+                @Override
+                public void run() {
+                    String loginresult = "";
+                    try {
+                        switch (lv.getId()) {
+                            case R.id.btn_login:
+                                loginresult = LoginByGet(LOGIN_URL, paramsmap);
+                                break;
 //                        case R.id.btn_login:
 //                            loginresult = LoginByPost(LOGIN_URL, paramsmap);
 //                            break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        threadRunToToast("登录时程序发生异常");
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    threadRunToToast("登录时程序发生异常");
+                    ///返回消息
+                    Message msg = new Message();
+                    msg.what = 0x11;
+                    msg.obj = loginresult;
+                    handler.sendMessage(msg);
                 }
-                ///返回消息
-                Message msg = new Message();
-                msg.what = 0x11;
-                msg.obj= loginresult;
-                handler.sendMessage(msg);
-            };
-            Handler handler=new Handler(getMainLooper()) {
-                @Override
-                public void handleMessage(Message msg) {
-                    if (msg.what == 0x11) {
-                        if ("success".equals(msg.obj.toString())) {
-                            threadRunToToast("登录成功！");
+
+                ;
+                Handler handler = new Handler(getMainLooper()) {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        if (msg.what == 0x11) {
+                            if ("success".equals(msg.obj.toString())) {
+                                threadRunToToast("登录成功！");
 //                                Intent intent=new Intent();
 //                                intent.setClass(MainActivity.this,studentList.class);
 //                                startActivity(intent);
-                        } else if("failed".equals(msg.obj.toString())) {
-                            threadRunToToast("用户名或密码错误！");
+                            } else if ("failed".equals(msg.obj.toString())) {
+                                threadRunToToast("用户名或密码错误！");
+                            }
                         }
                     }
-                }
 
-            };
-        }.start();
+                };
+            }.start();
+        }
     }
 
     /**

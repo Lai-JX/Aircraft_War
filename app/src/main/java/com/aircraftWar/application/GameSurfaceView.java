@@ -8,8 +8,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.fonts.Font;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -26,6 +24,7 @@ import com.aircraftWar.prop.AbstractProp;
 import com.aircraftWar.prop.BloodProp;
 import com.aircraftWar.prop.BombProp;
 import com.aircraftWar.prop.BulletProp;
+import com.aircraftWar.utils.DisplayUtil;
 import com.example.aircraftwar.R;
 
 import java.util.List;

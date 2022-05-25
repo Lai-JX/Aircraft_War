@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.aircraftWar.utils.PostUtil;
 import com.example.aircraftwar.R;
 
 import java.io.BufferedReader;
@@ -62,22 +63,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
        else if(v.getId()==R.id.btn_login) {
 
             final View lv = v;
-            final Map<String, String> paramsmap = new HashMap<>();
-            paramsmap.put("username", etName.getText().toString());
-            paramsmap.put("password", etPwd.getText().toString());
+//            final Map<String, String> paramsmap = new HashMap<>();
+//            paramsmap.put("username", etName.getText().toString());
+//            paramsmap.put("password", etPwd.getText().toString());
+
 
             new Thread() {
                 @Override
                 public void run() {
+                    String data="";
+                    try {
+                        data = "name="+ URLEncoder.encode(etName.getText().toString(), "UTF-8") +
+                                "&password="+ URLEncoder.encode(etPwd.getText().toString(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
                     String loginresult = "";
                     try {
-                        switch (lv.getId()) {
-                            case R.id.btn_login:
-                                loginresult = LoginByGet(LOGIN_URL, paramsmap);
-                                break;
-//                        case R.id.btn_login:
-//                            loginresult = LoginByPost(LOGIN_URL, paramsmap);
-//                            break;
+                        if(lv.getId()==R.id.btn_login) {
+
+                            loginresult = PostUtil.Post(LOGIN_URL, data);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

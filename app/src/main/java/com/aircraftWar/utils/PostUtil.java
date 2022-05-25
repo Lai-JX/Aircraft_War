@@ -21,7 +21,7 @@ public class PostUtil {
         String msg = "";
         try{
             //http://ms-yffprtappszi:8080/AndroidWeb/LoginServlet
-            HttpURLConnection conn = (HttpURLConnection) new URL("http://10.0.2.2:8080/AndroidWeb/"+url).openConnection();
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             //设置请求方式,请求超时信息
             conn.setRequestMethod("POST");
             conn.setReadTimeout(5000);
@@ -33,6 +33,7 @@ public class PostUtil {
             conn.setUseCaches(false);
             //我们请求的数据:
 
+            System.out.println("Post!!");
 
             //获取输出流
             OutputStream out = conn.getOutputStream();

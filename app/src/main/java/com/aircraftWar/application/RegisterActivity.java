@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText name = null;
     EditText username = null;
     EditText password = null;
-    private String REGISTER_URL="http://364ja28062.zicp.vip/LoginInfo";
+    private String REGISTER_URL="http://364ja28062.zicp.vip/RegisterMsg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
             if(msg.what == 2)
             {
                 //startActivity(new Intent(getApplication(),MainActivity.class));
-
+                Toast.makeText(getApplicationContext(),"注册成功",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 //将想要传递的数据用putExtra封装在intent中
                 intent.putExtra("a","註冊");

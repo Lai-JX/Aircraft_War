@@ -1,4 +1,4 @@
-package com.aircraftWar.application;
+package com.aircraftWar.utils;
 
 import android.content.Context;
 
@@ -12,5 +12,6 @@ public class DisplayUtil {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (pxValue/fontScale+0.5f);
     }
+
 
 }

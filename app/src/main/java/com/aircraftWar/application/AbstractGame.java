@@ -50,6 +50,7 @@ public class AbstractGame extends AppCompatActivity {
 //    protected FrameLayout.LayoutParams params;
     protected GameSurfaceView mSurfaceView; // 绘制游戏画面
     public static boolean soundOpen;    // 是否开启音效
+    protected boolean isBattle;         // 是否为对战模式
     protected Intent intent;
 //    protected MusicService.Binder binder = null;
 

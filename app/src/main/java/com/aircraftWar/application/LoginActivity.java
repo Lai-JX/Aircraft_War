@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //            final Map<String, String> paramsmap = new HashMap<>();
 //            paramsmap.put("username", etName.getText().toString());
 //            paramsmap.put("password", etPwd.getText().toString());
-            userName = etName.getText().toString();
+
 
             new Thread() {
                 @Override
@@ -89,6 +89,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     } catch (Exception e) {
                         e.printStackTrace();
                         threadRunToToast("登录时程序发生异常");
+                    }
+                    if("success".equals(loginresult)){
+                        userName = etName.getText().toString();
+                        System.out.println(userName);
                     }
                     ///返回消息
                     Message msg = new Message();

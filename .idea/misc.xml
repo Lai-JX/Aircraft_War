@@ -3,22 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Aircraft_Android/AircraftWar/app/src/main/res/layout/activity_battle.xml" value="0.2" />
-        <entry key="..\:/Aircraft_Android/AircraftWar/app/src/main/res/layout/activity_enter_name.xml" value="0.17447916666666666" />
         <entry key="..\:/Aircraft_Android/AircraftWar/app/src/main/res/layout/activity_game.xml" value="0.24947916666666667" />
-        <entry key="..\:/Aircraft_Android/AircraftWar/app/src/main/res/layout/activity_login.xml" value="0.2" />
-        <entry key="..\:/Aircraft_Android/AircraftWar/app/src/main/res/layout/activity_logon.xml" value="0.264" />
-        <entry key="..\:/Aircraft_Android/AircraftWar/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Aircraft_Android/AircraftWar/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Aircraft_Android/AircraftWar/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.128" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/drawable/btn_bg_selector.xml" value="0.1" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/drawable/ic_launcher_background.xml" value="0.128" />
+        <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/activity_battle.xml" value="0.1" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/activity_easy_game.xml" value="0.13645833333333332" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/activity_enter_name.xml" value="0.1" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/activity_game.xml" value="0.13645833333333332" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/activity_rank.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/AndroidProject/AircraftWar/app/src/main/res/layout/network_security_config.xml" value="0.1" />
       </map>
     </option>

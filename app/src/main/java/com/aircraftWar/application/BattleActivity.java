@@ -20,14 +20,21 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class BattleActivity extends AppCompatActivity {
-
+    private String battleModeId;
+    private boolean matchFinish = false;
     private Spinner mModelSpinner = null;
     private String cmode = null;
+    private String cname = null;
+    private boolean soundOpen;
     private String BATTLE_MODE_URL="http://364ja28062.zicp.vip/BattleMode";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+        // 获取来自主页面的信息
+        Intent intentFromMain = getIntent();
+        soundOpen = intentFromMain.getExtras().getBoolean("soundOpen");
+
         mModelSpinner = (Spinner)findViewById(R.id.mode_spin);
         String[] mode = {"简单模式","普通模式","困难模式"};
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mode);//创建Arrayadapter适配器
@@ -46,31 +53,33 @@ public class BattleActivity extends AppCompatActivity {
     }
     public void matching(View view){
 
-
-
-        String cname = LoginActivity.userName;
+        cname = LoginActivity.userName;
 
         new Thread(){
             @Override
             public void run() {
 
                 String data="";
-                data = "&name="+ cname+
-                        "&mode="+ cmode;
+                data = "&username="+ cname+
+                        "&mode="+ cmode+
+                        "&action=match";
+                if(cname!=null && !matchFinish){
+                    String result = PostUtil.Post(BATTLE_MODE_URL,data);
 
-                String request = PostUtil.Post(BATTLE_MODE_URL,data);
+                    int msg = 0;
 
-                int msg = 0;
-                if(request.equals("成功")){
-                    msg = 2;
+                    if(result.equals("fail")){
+                        msg = 1;
+                    }else if(result.equals("waiting")){
+                        msg = 0;
+                    }else{  // 匹配成功
+                        msg = 2;
+                        battleModeId = result;
+                        matchFinish = true;
+                    }
+
+                    hand.sendEmptyMessage(msg);
                 }
-                //已存在
-                if(request.equals("失败")){
-                    msg = 1;
-                }
-
-                hand.sendEmptyMessage(msg);
-
             }
         }.start();
     }
@@ -91,8 +100,44 @@ public class BattleActivity extends AppCompatActivity {
             if(msg.what == 2)
             {
                 Toast.makeText(getApplicationContext(),"匹配成功",Toast.LENGTH_LONG).show();
+                Intent intent;
+                switch (cmode){
+                    case "简单模式":
+                        intent = new Intent(getApplicationContext(),EasyModeGame.class);
+                        break;
+                    case "普通模式":
+                        intent = new Intent(getApplicationContext(),CommonModeGame.class);
+                        break;
+                    case "困难模式":
+                        intent = new Intent(getApplicationContext(),DifficultModeGame.class);
+                        break;
+                    default:
+                        intent = new Intent(getApplicationContext(),MainActivity.class);
+                        break;
+                }
+                intent.putExtra("soundOpen",soundOpen);
+                intent.putExtra("isBattle",true);
+                startActivity(intent);
             }
 
         }
     };
+    public void cancel(View view){
+        this.matchFinish = true;
+        new Thread(){
+            @Override
+            public void run() {
+
+                String data = "&username="+ cname+
+                        "&mode="+ cmode+
+                        "&action=cancel"+
+                        "&id="+battleModeId;
+                System.out.println(battleModeId);
+                String result = PostUtil.Post(BATTLE_MODE_URL,data);
+                System.out.println(result);
+            }
+
+        }.start();
+
+    }
 }

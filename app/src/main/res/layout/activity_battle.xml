@@ -57,6 +57,7 @@
         style="@style/MyBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="取消匹配" />
+        android:text="取消匹配"
+        android:onClick="cancel"/>
 
 </LinearLayout>

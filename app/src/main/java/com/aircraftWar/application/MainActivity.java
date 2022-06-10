@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(v.getId()==R.id.btn_battle){
             Intent intent = new Intent(this,BattleActivity.class);
-//            intent.putExtra("soundOpen",soundOpen);
+            intent.putExtra("soundOpen",soundOpen);
             startActivity(intent);
         }
     }

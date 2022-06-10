@@ -41,7 +41,10 @@ public class CommonModeGame extends AbstractGame{
         // 获取来自主页面的信息
         Intent intentFromMain = getIntent();
         soundOpen = intentFromMain.getBooleanExtra("soundOpen",true);
-        System.out.println(soundOpen);
+        isBattle = intent.getExtras().getBoolean("isBattle");
+        System.out.println("isBattle="+isBattle);
+
+        System.out.println("soundOpen="+soundOpen);
         System.out.println("获取intent成功，游戏开始");
         // 游戏开始
         action();

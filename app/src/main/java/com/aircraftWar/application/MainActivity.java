@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_difficult_mode).setOnClickListener(this);
         findViewById(R.id.sound_switch).setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
+        findViewById(R.id.btn_battle).setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }else if(v.getId()==R.id.btn_login){
             Intent intent = new Intent(this,LoginActivity.class);
+//            intent.putExtra("soundOpen",soundOpen);
+            startActivity(intent);
+        }
+        else if(v.getId()==R.id.btn_battle){
+            Intent intent = new Intent(this,BattleActivity.class);
 //            intent.putExtra("soundOpen",soundOpen);
             startActivity(intent);
         }

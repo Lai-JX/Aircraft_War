@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mode">
+        <item>简单模式</item>
+        <item>普通模式</item>
+        <item>困难模式</item>
+    </string-array>
+</resources>

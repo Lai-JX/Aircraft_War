@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.aircraftWar.application.LoginActivity"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="联机对战"
+        android:textColor="@color/purple_700"
+        android:textSize="50sp"
+        android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="选择您的游戏模式"
+            android:textColor="#44BDED"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/mode_spin"
+            android:layout_width="100dp"
+            android:layout_weight="5"
+            android:layout_height="64dp"
+            android:entries="@array/mode"
+            android:spinnerMode="dialog" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_online_matching"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="联机匹配"
+        android:onClick="matching"
+        style="@style/MyBtnStyle"
+        />
+
+    <Button
+        android:id="@+id/btn_cancel_matching"
+        style="@style/MyBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取消匹配" />
+
+</LinearLayout>

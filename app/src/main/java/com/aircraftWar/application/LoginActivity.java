@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+    public static String userName;
     private EditText etName;
     private EditText etPwd;
     private Button btgetLogin,btregister;
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //            final Map<String, String> paramsmap = new HashMap<>();
 //            paramsmap.put("username", etName.getText().toString());
 //            paramsmap.put("password", etPwd.getText().toString());
-
+            userName = etName.getText().toString();
 
             new Thread() {
                 @Override

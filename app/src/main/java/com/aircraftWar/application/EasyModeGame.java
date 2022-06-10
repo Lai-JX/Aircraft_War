@@ -30,9 +30,9 @@ public class EasyModeGame extends AbstractGame{
 //        Log.i("h",String.valueOf(ImageManager.hero.getHeight()));
 
         // 获取来自主页面的信息
-        Intent intent = getIntent();
-        soundOpen = intent.getExtras().getBoolean("soundOpen");
-        isBattle = intent.getExtras().getBoolean("isBattle");
+        Intent gameIntent = getIntent();
+        soundOpen = gameIntent.getExtras().getBoolean("soundOpen");
+        isBattle = gameIntent.getExtras().getBoolean("isBattle");
         System.out.println("isBattle="+isBattle);
 //        System.out.println(soundOpen);
 

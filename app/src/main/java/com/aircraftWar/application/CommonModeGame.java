@@ -39,9 +39,9 @@ public class CommonModeGame extends AbstractGame{
 //        Log.i("h",String.valueOf(ImageManager.hero.getHeight()));
         System.out.println("获取intent");
         // 获取来自主页面的信息
-        Intent intentFromMain = getIntent();
-        soundOpen = intentFromMain.getBooleanExtra("soundOpen",true);
-        isBattle = intent.getExtras().getBoolean("isBattle");
+        Intent gameIntent = getIntent();
+        soundOpen = gameIntent.getBooleanExtra("soundOpen",true);
+        isBattle = gameIntent.getExtras().getBoolean("isBattle");
         System.out.println("isBattle="+isBattle);
 
         System.out.println("soundOpen="+soundOpen);

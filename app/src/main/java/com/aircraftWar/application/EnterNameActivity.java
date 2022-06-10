@@ -38,13 +38,13 @@ public class EnterNameActivity extends AppCompatActivity implements View.OnClick
             try {
                 FileOutputStream out = null;
                 if(MainActivity.difficulty == 1) {
-                    out = openFileOutput("easyGameData", Context.MODE_APPEND);
+                    out = openFileOutput("easyMode_GameData", Context.MODE_APPEND);
                 }
                 else if(MainActivity.difficulty == 2){
-                    out = openFileOutput("commonGameData", Context.MODE_APPEND);
+                    out = openFileOutput("commonMode_GameData", Context.MODE_APPEND);
                 }
                 else if(MainActivity.difficulty == 3){
-                    out = openFileOutput("hardGameData", Context.MODE_APPEND);
+                    out = openFileOutput("hardMode_GameData", Context.MODE_APPEND);
                 }
                 ObjectOutputStream oos = new MyObjectOutputStream(out);
                 oos.writeObject(gameData);

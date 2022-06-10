@@ -63,17 +63,17 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
         try {
             System.out.println("准备读取数据");
             if(MainActivity.difficulty == 1) {
-                fis =openFileInput("easyGameData");
+                fis =openFileInput("easyMode_GameData");
                 TextView text = (TextView)findViewById(R.id.model);
                 text.setText("简单模式");
             }
             else if(MainActivity.difficulty == 2){
-                fis = openFileInput("commonGameData");
+                fis = openFileInput("commonMode_GameData");
                 TextView text = (TextView)findViewById(R.id.model);
                 text.setText("普通模式");
             }
             else if(MainActivity.difficulty == 3){
-                fis = openFileInput("hardGameData");
+                fis = openFileInput("hardMode_GameData");
                 TextView text = (TextView)findViewById(R.id.model);
                 text.setText("困难模式");
             }
@@ -183,13 +183,13 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
 
         try{
             if(MainActivity.difficulty == 1) {
-                fos =openFileOutput("easyGameData",MODE_PRIVATE);
+                fos =openFileOutput("easyMode_GameData",MODE_PRIVATE);
             }
             else if(MainActivity.difficulty == 2){
-                fos = openFileOutput("commonGameData",MODE_PRIVATE);
+                fos = openFileOutput("commonMode_GameData",MODE_PRIVATE);
             }
             else if(MainActivity.difficulty == 3){
-                fos = openFileOutput("hardGameData",MODE_PRIVATE);
+                fos = openFileOutput("hardMode_GameData",MODE_PRIVATE);
             }
             oos = new MyObjectOutputStream(fos);
             for(int i = 0;i<dataList.size();i++){

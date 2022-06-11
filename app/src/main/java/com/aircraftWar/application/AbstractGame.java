@@ -50,8 +50,9 @@ public class AbstractGame extends AppCompatActivity {
 //    protected FrameLayout.LayoutParams params;
     protected GameSurfaceView mSurfaceView; // 绘制游戏画面
     public static boolean soundOpen;    // 是否开启音效
-    protected boolean isBattle;         // 是否为对战模式
+    protected static boolean isBattle;         // 是否为对战模式
     protected Intent intent;
+    protected String BATTLE_MODE_URL="http://364ja28062.zicp.vip/BattleMode";
 //    protected MusicService.Binder binder = null;
 
     /**
@@ -85,6 +86,9 @@ public class AbstractGame extends AppCompatActivity {
 
 
     protected static int score = 0;
+    protected static String competitor_score;
+    protected static String competitor_life;
+    protected int battleModeId;
     protected int time = 0;
     protected int counter = 0;// 标志产生敌机的阈值
     protected int BulletPropStart = 0;

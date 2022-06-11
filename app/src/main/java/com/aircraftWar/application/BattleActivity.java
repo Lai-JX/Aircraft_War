@@ -137,7 +137,7 @@ public class BattleActivity extends AppCompatActivity {
             {
 //                Toast.makeText(getApplicationContext(),"等待中",Toast.LENGTH_LONG).show();
                 Toast toast=Toast.makeText(getApplicationContext(),"等待中", Toast.LENGTH_LONG);
-                showMyToast(toast,30);// 设置显示时间
+                showMyToast(toast,40);// 设置显示时间
             }
             if(msg.what == 1)
             {
@@ -148,6 +148,7 @@ public class BattleActivity extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"匹配成功",Toast.LENGTH_LONG).show();
                 Intent intent;
+                System.out.println("cmode="+cmode);
                 switch (cmode){
                     case "easy":
                         intent = new Intent(getApplicationContext(),EasyModeGame.class);
@@ -164,6 +165,7 @@ public class BattleActivity extends AppCompatActivity {
                 }
                 intent.putExtra("soundOpen",soundOpen);
                 intent.putExtra("isBattle",true);
+                intent.putExtra("battleId",battleModeId);
                 startActivity(intent);
             }
 

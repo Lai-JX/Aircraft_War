@@ -148,15 +148,21 @@ public class GameSurfaceView  extends SurfaceView implements
         //绘制声明值和得分信息
         float x = 40;
         float y = 60;
+        if(AbstractGame.isBattle){
+            canvas.drawText("SELF", x, y,textPaint);
+            y = y+80;
+        }
         canvas.drawText("SCORE:" + AbstractGame.score, x, y,textPaint);
         y = y + 80;
         canvas.drawText("LIFE:" + Double.parseDouble(String.format("%.1f",this.heroAircraft.getHp())), x, y,textPaint);
        if(AbstractGame.isBattle){
-           x = 200;
+           x = MainActivity.WINDOW_WIDTH-400;
            y = 60;
-           canvas.drawText("COMPETITOR:" + AbstractGame.competitor_score, x, y,textPaint);
+           canvas.drawText("OPPONENT", x, y,textPaint);
+           y = y+80;
+           canvas.drawText("SCORE:" + AbstractGame.competitor_score, x, y,textPaint);
            y = y + 80;
-           canvas.drawText("LIFE:" + Double.parseDouble(String.format("%.1f",AbstractGame.competitor_life)), x, y,textPaint);
+           canvas.drawText("LIFE:" + AbstractGame.competitor_life, x, y,textPaint);
        }
         //				解锁
         mSurfaceHolder.unlockCanvasAndPost(canvas);

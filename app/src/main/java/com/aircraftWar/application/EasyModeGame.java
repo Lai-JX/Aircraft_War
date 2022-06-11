@@ -34,7 +34,7 @@ public class EasyModeGame extends AbstractGame{
         Intent gameIntent = getIntent();
         soundOpen = gameIntent.getExtras().getBoolean("soundOpen");
         isBattle = gameIntent.getExtras().getBoolean("isBattle");
-        battleModeId = gameIntent.getExtras().getInt("battleId");
+        battleModeId = gameIntent.getExtras().getString("battleId");
         System.out.println("isBattle="+isBattle);
 //        System.out.println(soundOpen);
 
@@ -63,21 +63,22 @@ public class EasyModeGame extends AbstractGame{
         Runnable task = () -> {
 
             time += timeInterval;
-//            if(isBattle){
-//                new Thread(()->{
-//                    String data="";
-//                    data = "&username="+ LoginActivity.userName+
-//                            "&id="+battleModeId+
-//                            "&action=score" +
-//                            "&score="+score +
-//                            "&life="+heroAircraft.getHp();
-//                    String result = PostUtil.Post(BATTLE_MODE_URL,data);
-//                    String res[] = result.split("&");
-//                    competitor_life = res[1];
-//                    competitor_score = res[0];
-//                });
-//
-//            }
+            if(isBattle){
+                new Thread(()->{
+                    String data="";
+                    data = "&username="+ LoginActivity.userName+
+                            "&id="+battleModeId+
+                            "&action=score" +
+                            "&score="+AbstractGame.score +
+                            "&life="+heroAircraft.getHp();
+                    System.out.println("发送同步得分请求");
+                    String result = PostUtil.Post(BATTLE_MODE_URL,data);
+                    String res[] = result.split("&");
+                    competitor_life = res[1];
+                    competitor_score = res[0];
+                }).start();
+
+            }
 
             // 周期性执行（控制频率）
             if (timeCountAndNewCycleJudge()) {

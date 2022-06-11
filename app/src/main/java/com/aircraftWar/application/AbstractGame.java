@@ -86,9 +86,9 @@ public class AbstractGame extends AppCompatActivity {
 
 
     protected static int score = 0;
-    protected static String competitor_score;
-    protected static String competitor_life;
-    protected int battleModeId;
+    protected static String competitor_score="0";
+    protected static String competitor_life="0";
+    protected String battleModeId;
     protected int time = 0;
     protected int counter = 0;// 标志产生敌机的阈值
     protected int BulletPropStart = 0;

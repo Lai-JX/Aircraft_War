@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import com.aircraftWar.GameDataDao.GameData;
 import com.aircraftWar.aircraft.BossEnemy;
 import com.aircraftWar.aircraft.HeroAircraft;
+import com.aircraftWar.utils.PostUtil;
 import com.example.aircraftwar.R;
 
 import java.util.Date;
@@ -62,6 +63,25 @@ public class DifficultModeGame extends AbstractGame{
     }
 
     public void action(){
+        if(isBattle){
+            new Thread(()->{
+                String data="";
+                data = "&username="+ LoginActivity.userName+
+                        "&id="+battleModeId+
+                        "&action=score" +
+                        "&score="+AbstractGame.score +
+                        "&life="+heroAircraft.getHp();
+                System.out.println("发送同步得分请求");
+                String result = PostUtil.Post(BATTLE_MODE_URL,data);
+                String res[] = result.split("&");
+                if(res.length==2){
+                    competitor_life = res[1];
+                    competitor_score = res[0];
+                }
+
+            }).start();
+
+        }
         if(soundOpen){
             if(gameOverFlag){
                 intent.putExtra("music","bgm");

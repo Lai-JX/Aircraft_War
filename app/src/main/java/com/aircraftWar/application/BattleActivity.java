@@ -83,7 +83,7 @@ public class BattleActivity extends AppCompatActivity {
     }
     public void matching(View view){
         cname = LoginActivity.userName;
-
+        Toast.makeText(getApplicationContext(),"等待中",Toast.LENGTH_SHORT).show();
         // 定时任务：向服务端发送请求
         Runnable task = () -> {
             String data="";
@@ -159,8 +159,8 @@ public class BattleActivity extends AppCompatActivity {
             if(msg.what == 0)
             {
 //                Toast.makeText(getApplicationContext(),"等待中",Toast.LENGTH_LONG).show();
-                Toast toast=Toast.makeText(getApplicationContext(),"等待中", Toast.LENGTH_LONG);
-                showMyToast(toast,40);// 设置显示时间
+//                Toast toast=Toast.makeText(getApplicationContext(),"等待中", Toast.LENGTH_LONG);
+//                showMyToast(toast,100);// 设置显示时间
             }
             if(msg.what == 1)
             {

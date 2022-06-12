@@ -108,9 +108,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (msg.what == 0x11) {
                             if ("success".equals(msg.obj.toString())) {
                                 threadRunToToast("登录成功！");
-//                                Intent intent=new Intent();
-//                                intent.setClass(MainActivity.this,studentList.class);
-//                                startActivity(intent);
+                                Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
                             } else if ("failed".equals(msg.obj.toString())) {
                                 threadRunToToast("用户名或密码错误！");
                             }

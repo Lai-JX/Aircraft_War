@@ -27,6 +27,7 @@ public class EnterNameActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.确认).setOnClickListener(this);
         findViewById(R.id.取消).setOnClickListener(this);
         edit = (EditText) findViewById(R.id.et_username);
+        edit.setText(LoginActivity.userName);
     }
 
     @Override

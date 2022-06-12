@@ -74,8 +74,11 @@ public class EasyModeGame extends AbstractGame{
                     System.out.println("发送同步得分请求");
                     String result = PostUtil.Post(BATTLE_MODE_URL,data);
                     String res[] = result.split("&");
-                    competitor_life = res[1];
-                    competitor_score = res[0];
+                    if(res.length==2){
+                        competitor_life = res[1];
+                        competitor_score = res[0];
+                    }
+
                 }).start();
 
             }

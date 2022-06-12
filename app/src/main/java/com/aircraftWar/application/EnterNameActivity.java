@@ -38,7 +38,9 @@ public class EnterNameActivity extends AppCompatActivity implements View.OnClick
             try {
                 FileOutputStream out = null;
                 if(MainActivity.difficulty == 1) {
+                    System.out.println("try out");
                     out = openFileOutput("easyMode_GameData", Context.MODE_APPEND);
+                    System.out.println("try success");
                 }
                 else if(MainActivity.difficulty == 2){
                     out = openFileOutput("commonMode_GameData", Context.MODE_APPEND);
@@ -49,6 +51,7 @@ public class EnterNameActivity extends AppCompatActivity implements View.OnClick
                 ObjectOutputStream oos = new MyObjectOutputStream(out);
                 oos.writeObject(gameData);
                 oos.close();
+                System.out.println("try new intent");
                 Intent intent = new Intent(this, RankActivity.class);
                 startActivity(intent);
             } catch (IOException e) {

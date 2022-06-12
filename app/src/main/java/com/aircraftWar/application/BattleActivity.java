@@ -116,12 +116,15 @@ public class BattleActivity extends AppCompatActivity {
                     System.out.println("cmode="+cmode);
                     switch (cmode){
                         case "easy":
+                            MainActivity.difficulty=1;
                             intent = new Intent(getApplicationContext(),EasyModeGame.class);
                             break;
                         case "common":
+                            MainActivity.difficulty=2;
                             intent = new Intent(getApplicationContext(),CommonModeGame.class);
                             break;
                         case "difficult":
+                            MainActivity.difficulty=3;
                             intent = new Intent(getApplicationContext(),DifficultModeGame.class);
                             break;
                         default:

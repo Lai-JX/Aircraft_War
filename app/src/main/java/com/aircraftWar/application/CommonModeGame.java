@@ -43,6 +43,7 @@ public class CommonModeGame extends AbstractGame{
         Intent gameIntent = getIntent();
         soundOpen = gameIntent.getBooleanExtra("soundOpen",true);
         isBattle = gameIntent.getExtras().getBoolean("isBattle");
+        battleModeId = gameIntent.getExtras().getString("battleId");
         System.out.println("isBattle="+isBattle);
 
         System.out.println("soundOpen="+soundOpen);
@@ -61,25 +62,7 @@ public class CommonModeGame extends AbstractGame{
 
     public void action() {
 
-        if(isBattle){
-            new Thread(()->{
-                String data="";
-                data = "&username="+ LoginActivity.userName+
-                        "&id="+battleModeId+
-                        "&action=score" +
-                        "&score="+AbstractGame.score +
-                        "&life="+heroAircraft.getHp();
-                System.out.println("发送同步得分请求");
-                String result = PostUtil.Post(BATTLE_MODE_URL,data);
-                String res[] = result.split("&");
-                if(res.length==2){
-                    competitor_life = res[1];
-                    competitor_score = res[0];
-                }
 
-            }).start();
-
-        }
         if(soundOpen){
             if(gameOverFlag){
                 intent.putExtra("music","bgm");
@@ -100,6 +83,25 @@ public class CommonModeGame extends AbstractGame{
         Runnable task = () -> {
 
             time += timeInterval;
+            if(isBattle){
+                new Thread(()->{
+                    String data="";
+                    data = "&username="+ LoginActivity.userName+
+                            "&id="+battleModeId+
+                            "&action=score" +
+                            "&score="+AbstractGame.score +
+                            "&life="+heroAircraft.getHp();
+                    System.out.println("发送同步得分请求");
+                    String result = PostUtil.Post(BATTLE_MODE_URL,data);
+                    String res[] = result.split("&");
+                    if(res.length==2){
+                        competitor_life = res[1];
+                        competitor_score = res[0];
+                    }
+
+                }).start();
+
+            }
             // 每隔5秒增加难度
             if(time % 5100 == 0){
                 eliteEnemyProbability += 0.01;

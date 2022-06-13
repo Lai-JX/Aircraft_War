@@ -26,34 +26,34 @@ public class MusicService extends Service{
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "==== MusicService onStartCommand ===");
-//        String music = intent.getStringExtra("music");
-//        if("bullet_hit".equals(music)){
-//            player_bullet_hit = MediaPlayer.create(this,R.raw.bullet_hit);
-//            player_bullet_hit.start();
-//        }else if("bgm_boss".equals(music)){
-//            player_bgm_boss = MediaPlayer.create(this,R.raw.bgm_boss);
-//            player_bgm_boss.start();
-//            player_bgm_boss.setLooping(true);
-//        }else if("bomb_explosion".equals(music)){
-//            player_bomb_explosion = MediaPlayer.create(this,R.raw.bomb_explosion);
-//            player_bomb_explosion.start();
-//        }else if("game_over".equals(music)){
-//            player_game_over = MediaPlayer.create(this,R.raw.game_over);
-//            player_game_over.start();
-//            stopMusic(player_bgm);
-////            stopAllMusic();
-//        }else if("get_supply".equals(music)){
-//            player_get_supply = MediaPlayer.create(this,R.raw.get_supply);
-//            player_get_supply.start();
-//        }else if("bgm_boss_close".equals(music)){
-//            stopMusic(player_bgm_boss);
-//        }else if("bgm".equals(music)){
-//            player_bgm = MediaPlayer.create(this,R.raw.bgm);
-//            player_bgm.start();
-//            player_bgm.setLooping(true);
-//        }
-//        return super.onStartCommand(intent, flags, startId);
-        return Service.START_NOT_STICKY;
+        String music = intent.getStringExtra("music");
+        if("bullet_hit".equals(music)){
+            player_bullet_hit = MediaPlayer.create(this,R.raw.bullet_hit);
+            player_bullet_hit.start();
+        }else if("bgm_boss".equals(music)){
+            player_bgm_boss = MediaPlayer.create(this,R.raw.bgm_boss);
+            player_bgm_boss.start();
+            player_bgm_boss.setLooping(true);
+        }else if("bomb_explosion".equals(music)){
+            player_bomb_explosion = MediaPlayer.create(this,R.raw.bomb_explosion);
+            player_bomb_explosion.start();
+        }else if("game_over".equals(music)){
+            player_game_over = MediaPlayer.create(this,R.raw.game_over);
+            player_game_over.start();
+            stopMusic(player_bgm);
+//            stopAllMusic();
+        }else if("get_supply".equals(music)){
+            player_get_supply = MediaPlayer.create(this,R.raw.get_supply);
+            player_get_supply.start();
+        }else if("bgm_boss_close".equals(music)){
+            stopMusic(player_bgm_boss);
+        }else if("bgm".equals(music)){
+            player_bgm = MediaPlayer.create(this,R.raw.bgm);
+            player_bgm.start();
+            player_bgm.setLooping(true);
+        }
+        return super.onStartCommand(intent, flags, startId);
+//        return Service.START_NOT_STICKY;
     }
 
     /**
